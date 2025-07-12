@@ -1,0 +1,7 @@
+export function Footer() {
+  return (
+    <footer className="bg-lime-800 text-white text-center p-4">
+      <p className="text-sm">&copy; 2025 Smartfarm AI | Intel AI Competition</p>
+    </footer>
+  );
+}

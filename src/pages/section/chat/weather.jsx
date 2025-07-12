@@ -1,92 +1,30 @@
-import { useEffect, useState } from "react";
-
-const kodeCuaca = {
-  0: { emoji: "☀️", kondisi: "Cerah" },
-  1: { emoji: "🌤️", kondisi: "Cerah Berawan" },
-  2: { emoji: "⛅", kondisi: "Sebagian Berawan" },
-  3: { emoji: "☁️", kondisi: "Mendung" },
-  45: { emoji: "🌫️", kondisi: "Berkabut" },
-  48: { emoji: "🌫️", kondisi: "Kabut Tebal" },
-  51: { emoji: "🌦️", kondisi: "Gerimis Ringan" },
-  53: { emoji: "🌦️", kondisi: "Gerimis Sedang" },
-  55: { emoji: "🌧️", kondisi: "Gerimis Lebat" },
-  56: { emoji: "🌧️", kondisi: "Gerimis Beku Ringan" },
-  57: { emoji: "🌧️", kondisi: "Gerimis Beku Lebat" },
-  61: { emoji: "🌧️", kondisi: "Hujan Ringan" },
-  63: { emoji: "🌧️", kondisi: "Hujan Sedang" },
-  65: { emoji: "🌧️", kondisi: "Hujan Lebat" },
-  66: { emoji: "❄️", kondisi: "Hujan Beku Ringan" },
-  67: { emoji: "❄️", kondisi: "Hujan Beku Lebat" },
-  71: { emoji: "❄️", kondisi: "Salju Ringan" },
-  73: { emoji: "❄️", kondisi: "Salju Sedang" },
-  75: { emoji: "❄️", kondisi: "Salju Lebat" },
-  77: { emoji: "🌨️", kondisi: "Kristal Salju" },
-  80: { emoji: "🌦️", kondisi: "Hujan Lokal Ringan" },
-  81: { emoji: "🌧️", kondisi: "Hujan Lokal Sedang" },
-  82: { emoji: "🌧️", kondisi: "Hujan Lokal Lebat" },
-  85: { emoji: "🌨️", kondisi: "Salju Lokal Ringan" },
-  86: { emoji: "🌨️", kondisi: "Salju Lokal Lebat" },
-  95: { emoji: "⛈️", kondisi: "Badai Petir" },
-  96: { emoji: "⛈️⚡", kondisi: "Badai Petir + Hujan Es Ringan" },
-  99: { emoji: "⛈️❄️", kondisi: "Badai Petir + Hujan Es Lebat" },
-};
+import { useContext, useEffect, useState } from "react";
+import { getWeatherForecast } from "../../../lib/services/getWeatherForecast";
+import { LocationContext } from "../../../context/locationContext";
 
 export function Weather() {
-  const [location, setLocation] = useState({ lat: null, lon: null, label: "Mendeteksi lokasi..." });
+  const { location, locationChecked } = useContext(LocationContext);
   const [forecast, setForecast] = useState([]);
   const [loadingWeather, setLoadingWeather] = useState(true);
   const [errorWeather, setErrorWeather] = useState(null);
 
   useEffect(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const { latitude, longitude } = pos.coords;
-          setLocation({
-            lat: latitude,
-            lon: longitude,
-            label: `Lat: ${latitude.toFixed(4)}, Lon: ${longitude.toFixed(4)}`
-          });
-        },
-        () => setLocation({ lat: null, lon: null, label: "Lokasi tidak tersedia" })
-      );
-    } else {
-      setLocation({ lat: null, lon: null, label: "Geolocation tidak didukung" });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (location.lat && location.lon) {
+    async function fetchForecast() {
       setLoadingWeather(true);
-      const url = `https://api.open-meteo.com/v1/forecast?latitude=${location.lat}&longitude=${location.lon}&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto`;
-
-      fetch(url)
-        .then(res => res.json())
-        .then(data => {
-          const newForecast = data.daily.time.map((tanggal, i) => {
-            const kode = data.daily.weathercode[i];
-            const suhuMax = Math.round(data.daily.temperature_2m_max[i]);
-            const suhuMin = Math.round(data.daily.temperature_2m_min[i]);
-
-            const hari = new Date(tanggal).toLocaleDateString("id-ID", { weekday: "long" });
-
-            return {
-              hari,
-              icon: kodeCuaca[kode]?.emoji || "❔",
-              kondisi: kodeCuaca[kode]?.kondisi || "Tidak diketahui",
-              suhu: `${suhuMax}°C / ${suhuMin}°C`,
-            };
-          });
-
-          setForecast(newForecast);
-          setLoadingWeather(false);
-        })
-        .catch(() => {
-          setErrorWeather("Gagal memuat data cuaca.");
-          setLoadingWeather(false);
-        });
+      try {
+        const data = await getWeatherForecast(location.lat, location.lon);
+        setForecast(data);
+        setLoadingWeather(false);
+      } catch (error) {
+        setErrorWeather("Gagal memuat data cuaca.");
+        setLoadingWeather(false);
+      }
     }
-  }, [location.lat, location.lon]);
+
+    if (locationChecked && location.lat && location.lon) {
+      fetchForecast();
+    }
+  }, [location.lat, location.lon, locationChecked]);
 
   return (
     <section className="bg-lime-50 py-10">

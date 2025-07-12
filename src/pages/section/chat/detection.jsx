@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaCamera, FaCloudUploadAlt } from "react-icons/fa";
 import { CameraModal } from "../../../components/modal/cameraModal";
+import { predictDisease } from "../../../lib/services/postPredict";
 
 export function PlantDiseaseDetection() {
   const [mode, setMode] = useState(null);
@@ -36,40 +37,7 @@ export function PlantDiseaseDetection() {
     setResult(null);
   };
 
-  const dataURLtoBlob = (dataURL) => {
-    const [header, base64] = dataURL.split(",");
-    const mime = header.match(/:(.*?);/)[1];
-    const binary = atob(base64);
-    const array = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i++) array[i] = binary.charCodeAt(i);
-    return new Blob([array], { type: mime });
-  };
-
-  const submitPrediction = async () => {
-    setLoading(true);
-    setResult(null);
-    try {
-      const blob = dataURLtoBlob(preview);
-      const formData = new FormData();
-      formData.append("file", blob, "image.png");
-
-      const response = await fetch("http://127.0.0.1:5000/predict", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        setResult(data);
-      } else {
-        alert("Gagal prediksi: " + data.error);
-      }
-    } catch (err) {
-      alert("Terjadi kesalahan: " + err.message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const submitPrediction = () => predictDisease(preview, setLoading, setResult);
 
   return (
     <section className="bg-[#f7fff4] py-10">
@@ -139,7 +107,6 @@ export function PlantDiseaseDetection() {
             <p className="text-gray-700 text-sm mb-4">
               Daun terkena penyakit <strong>{result.class}</strong> dengan keyakinan <strong>{(result.confidence * 100).toFixed(2)}%</strong>.
             </p>
-            {/* Rekomendasi bisa disesuaikan berdasarkan label */}
             <h4 className="text-lime-700 font-medium mb-1 text-sm">Rekomendasi:</h4>
             <ul className="list-disc list-inside text-gray-600 text-sm space-y-1">
               <li>Pangkas bagian daun yang terinfeksi.</li>

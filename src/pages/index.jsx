@@ -21,6 +21,7 @@ export function Home() {
       <Testimoni />
       {/* Let's Join Us */}
       <Join />
+
     </MainLayout>
   );
 }
