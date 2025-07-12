@@ -1,9 +1,9 @@
 export function Describe() {
   return (
-    <section className="py-16 bg-lime-100">
+    <section className="py-16 bg-lime-100" id="about">
         <div className="container mx-auto px-4 flex flex-col md:flex-row items-center gap-10">
           <div className="md:w-1/2">
-            <img src="/src/assets/images/logo/smart-farm.svg" alt="Tentang Smart Farmer" className="w-64 mx-auto" />
+            <img src="/src/assets/images/homepage/daun-segar.jpeg" alt="Tentang Smart Farmer" className="w-64 mx-auto" />
           </div>
           <div className="md:w-1/2">
             <h2 className="text-3xl font-bold text-lime-800 mb-4">Tentang Smart Farmer</h2>

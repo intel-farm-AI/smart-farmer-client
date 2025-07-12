@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export function Banner() {
   return (
     <section className="bg-gradient-to-br from-lime-100 to-lime-300 py-16 md:py-24">
@@ -9,11 +11,11 @@ export function Banner() {
             <p className="text-xl text-gray-700 mb-8">
               Optimalkan hasil panen, deteksi penyakit tanaman, dan dapatkan rekomendasi terbaik dengan teknologi AI.
             </p>
-            <a href="/login">
+            <Link to="/try-ai">
               <button className="bg-lime-800 text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:bg-lime-700 transition-all">
                 Mulai Sekarang
               </button>
-            </a>
+            </Link>
           </div>
           <div className="flex justify-center">
             <img src="/src/assets/images/homepage/homepage.jpg" alt="Smart Farmer Hero" className="rounded-2xl shadow-2xl w-xl md:w-full max-w-md" />
