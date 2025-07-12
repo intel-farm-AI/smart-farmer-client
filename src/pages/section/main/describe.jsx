@@ -6,18 +6,18 @@ export function Describe() {
         <div className="md:w-1/2 flex justify-center">
           <img
             src="/src/assets/images/homepage/daun-segar.jpeg"
-            alt="Ilustrasi Smart Farmer"
+            alt="Ilustrasi Smart Farm"
             className="w-96 h-96 object-cover rounded-2xl shadow-lg border-4 border-lime-200 animate-fadeInUp"
           />
         </div>
 
         <div className="md:w-1/2">
           <h2 className="text-4xl font-extrabold text-lime-800 mb-6 leading-tight animate-fadeInUp">
-            Mengenal <span className="text-lime-600">Smart Farmer AI</span>
+            Mengenal <span className="text-lime-600">Smartfarm AI</span>
           </h2>
 
           <p className="text-base text-gray-700 mb-6 leading-relaxed animate-fadeInUp delay-100">
-            <strong className="text-lime-700">Smart Farmer AI</strong> adalah solusi digital berbasis kecerdasan buatan untuk membantu petani Indonesia mengoptimalkan hasil pertanian. Dirancang untuk menjawab tantangan di lapangan, aplikasi ini memberikan kemudahan, efisiensi, dan dukungan teknologi terbaru dalam satu platform.
+            <strong className="text-lime-700">Smartfarm AI</strong> adalah solusi digital berbasis kecerdasan buatan untuk membantu petani Indonesia mengoptimalkan hasil pertanian. Dirancang untuk menjawab tantangan di lapangan, aplikasi ini memberikan kemudahan, efisiensi, dan dukungan teknologi terbaru dalam satu platform.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 animate-fadeInUp delay-200">

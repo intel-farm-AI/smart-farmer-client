@@ -1,17 +1,20 @@
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { ref, set } from "firebase/database";
 import { auth, db } from "../../lib/services/firebase";
 import { MainLayout } from "../../layout/main";
 import { loginWithGoogle } from "../../lib/utils/googleAuth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 
 export function Register() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -22,12 +25,17 @@ export function Register() {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const uid = userCredential.user.uid;
 
+      // Set displayName di Firebase Auth
+      await updateProfile(userCredential.user, { displayName: name });
+
       await set(ref(db, `users/${uid}`), {
+        name,
         email,
         createdAt: Date.now(),
       });
 
-      alert("Registrasi berhasil!");
+      navigate("/dashboard");
+      setName("");
       setEmail("");
       setPassword("");
     } catch (err) {
@@ -52,6 +60,17 @@ export function Register() {
           <h2 className="text-3xl font-bold text-lime-800 text-center">Daftar Akun</h2>
           <p className="mb-6 text-center text-lime-900">Ayo bergabung dengan kami</p>
           <form onSubmit={handleRegister} className="space-y-4">
+            <div>
+              <label className="block mb-1 text-sm font-medium text-gray-700">Nama Lengkap</label>
+              <input
+                type="text"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500"
+                placeholder="Masukkan Nama"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
             <div>
               <label className="block mb-1 text-sm font-medium text-gray-700">Email</label>
               <input
@@ -93,8 +112,8 @@ export function Register() {
               type="button"
               onClick={async () => {
                 try {
-                  const user = await loginWithGoogle();
-                  alert(`Halo, ${user.displayName}`);
+                  await loginWithGoogle();
+                  navigate("/dashboard");
                 } catch (error) {
                   console.error(error);
                   alert("Gagal login dengan Google");

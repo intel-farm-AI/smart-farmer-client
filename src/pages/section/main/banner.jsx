@@ -6,7 +6,7 @@ export function Banner() {
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-10 px-4">
           <div className="md:w-1/2">
             <h1 className="text-5xl md:text-6xl font-bold text-lime-800 leading-tight mb-6">
-              <span className="text-lime-600">Smart Farmer AI</span><br />Solusi Cerdas untuk Pertanian Modern
+              <span className="text-lime-600">Smartfarm AI</span><br />Solusi Cerdas untuk Pertanian Modern
             </h1>
             <p className="text-xl text-gray-700 mb-8">
               Optimalkan hasil panen, deteksi penyakit tanaman, dan dapatkan rekomendasi terbaik dengan teknologi AI.
@@ -18,7 +18,7 @@ export function Banner() {
             </Link>
           </div>
           <div className="flex justify-center">
-            <img src="/src/assets/images/homepage/homepage.jpg" alt="Smart Farmer Hero" className="rounded-2xl shadow-2xl w-xl md:w-full max-w-md" />
+            <img src="/src/assets/images/homepage/homepage.jpg" alt="Smart Farm Hero" className="rounded-2xl shadow-2xl w-xl md:w-full max-w-md" />
           </div>
         </div>
     </section>

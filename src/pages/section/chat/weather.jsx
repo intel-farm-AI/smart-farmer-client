@@ -1,36 +1,32 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { getWeatherForecast } from "../../../lib/services/getWeatherForecast";
 import { LocationContext } from "../../../context/locationContext";
+import { getAuth } from "firebase/auth";
 
 export function Weather() {
   const { location, locationChecked } = useContext(LocationContext);
-  const [forecast, setForecast] = useState([]);
-  const [loadingWeather, setLoadingWeather] = useState(true);
-  const [errorWeather, setErrorWeather] = useState(null);
+  const auth = getAuth();
+  const user = auth.currentUser;
 
-  useEffect(() => {
-    async function fetchForecast() {
-      setLoadingWeather(true);
-      try {
-        const data = await getWeatherForecast(location.lat, location.lon);
-        setForecast(data);
-        setLoadingWeather(false);
-      } catch (error) {
-        setErrorWeather("Gagal memuat data cuaca.");
-        setLoadingWeather(false);
-      }
-    }
+  const {
+    data: forecast = [],
+    isLoading: loadingWeather,
+    isError,
+  } = useQuery({
+    queryKey: ['weatherForecast', location.lat, location.lon],
+    queryFn: () => getWeatherForecast(location.lat, location.lon),
+    enabled: locationChecked && !!location.lat && !!location.lon,
+    staleTime: 1000 * 60 * 10,
+  });
 
-    if (locationChecked && location.lat && location.lon) {
-      fetchForecast();
-    }
-  }, [location.lat, location.lon, locationChecked]);
+  const errorWeather = isError ? "Gagal memuat data cuaca." : null;
 
   return (
     <section className="bg-lime-50 py-10">
       <div className="container mx-auto mt-8 px-4 sm:px-6 md:px-10 py-8 bg-white rounded-2xl shadow-sm">
         <h2 className="text-3xl font-bold text-lime-800 mb-2 text-center sm:text-left">
-          Selamat Datang di SmartFarm AI!
+          Selamat Datang{user && user.displayName ? ` ${user.displayName}` : ''}!
         </h2>
         <p className="text-gray-600 mb-5 text-center sm:text-left">
           Berikut ramalan cuaca untuk 7 hari ke depan

@@ -3,7 +3,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../lib/services/firebase";
 import { MainLayout } from "../../layout/main";
 import { loginWithGoogle } from "../../lib/utils/googleAuth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 
 export default function Login() {
@@ -12,6 +12,8 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
   const handleLogin = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -19,7 +21,7 @@ export default function Login() {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      alert("Login berhasil!");
+      navigate("/dashboard");
       setEmail("");
       setPassword("");
     } catch (err) {
@@ -86,8 +88,8 @@ export default function Login() {
               type="button"
               onClick={async () => {
                 try {
-                  const user = await loginWithGoogle();
-                  alert(`Halo, ${user.displayName}`);
+                  await loginWithGoogle();
+                  navigate("/dashboard");
                 } catch (error) {
                   console.error(error);
                   alert("Gagal login dengan Google");

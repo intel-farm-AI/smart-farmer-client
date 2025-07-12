@@ -13,7 +13,7 @@ export function Home() {
       <Banner />
       {/* Main Feature */}
       <Feature />
-      {/* About Smart Farmer */}
+      {/* About Smart Farm */}
       <Describe />
       {/* How It Works */}
       <Howitworks />
