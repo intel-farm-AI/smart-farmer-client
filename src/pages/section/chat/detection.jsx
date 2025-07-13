@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { FaCamera, FaCloudUploadAlt } from "react-icons/fa";
 import { CameraModal } from "../../../components/modal/cameraModal";
-import { predictDisease } from "../../../lib/services/postPredict";
+import { predictPlantDiseaseWithGroq } from "../../../lib/services/groqPredict";
+import ReactMarkdown from "react-markdown";
 
 export function PlantDiseaseDetection() {
-  const [mode, setMode] = useState(null);
+  const [_, setMode] = useState(null); 
   const [preview, setPreview] = useState(null);
   const [showCameraModal, setShowCameraModal] = useState(false);
   const [result, setResult] = useState(null); 
   const [loading, setLoading] = useState(false);
+  const [showFade, setShowFade] = useState(false);
+  // typewriter effect dihapus, diganti skeleton loading
 
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
@@ -37,7 +40,29 @@ export function PlantDiseaseDetection() {
     setResult(null);
   };
 
-  const submitPrediction = () => predictDisease(preview, setLoading, setResult);
+  const submitPrediction = async () => {
+    setLoading(true);
+    setResult(null);
+    setShowFade(false);
+    try {
+      const text = await predictPlantDiseaseWithGroq({ preview });
+      setResult(text);
+    } catch {
+      setResult("Terjadi kesalahan saat memproses prediksi.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!loading && result) {
+      // Delay agar fade-in smooth setelah skeleton hilang
+      const timeout = setTimeout(() => setShowFade(true), 50);
+      return () => clearTimeout(timeout);
+    } else {
+      setShowFade(false);
+    }
+  }, [loading, result]);
 
   return (
     <section className="bg-[#f7fff4] py-10">
@@ -89,7 +114,7 @@ export function PlantDiseaseDetection() {
                 className="bg-lime-600 hover:bg-lime-700 text-white px-6 py-2 rounded transition"
                 disabled={loading}
               >
-                {loading ? "Memprediksi..." : "Submit untuk Prediksi"}
+                {loading ? "Memprediksi..." : "Kirim Gambar"}
               </button>
               <button
                 onClick={resetUpload}
@@ -101,18 +126,41 @@ export function PlantDiseaseDetection() {
           </div>
         )}
 
-        {result && (
-          <div className="rounded-xl border border-lime-200 bg-white p-6 shadow-sm mt-6">
-            <h3 className="text-lime-800 font-semibold mb-1">Hasil Prediksi</h3>
-            <p className="text-gray-700 text-sm mb-4">
-              Daun terkena penyakit <strong>{result.class}</strong> dengan keyakinan <strong>{(result.confidence * 100).toFixed(2)}%</strong>.
-            </p>
-            <h4 className="text-lime-700 font-medium mb-1 text-sm">Rekomendasi:</h4>
-            <ul className="list-disc list-inside text-gray-600 text-sm space-y-1">
-              <li>Pangkas bagian daun yang terinfeksi.</li>
-              <li>Gunakan fungisida organik atau kimia sesuai anjuran.</li>
-              <li>Jaga kelembaban dan sirkulasi udara.</li>
-            </ul>
+        {(loading || result) && (
+          <div className="rounded-xl border border-lime-200 bg-white p-6 shadow-sm mt-6 min-h-[100px]">
+            <h3 className="text-lime-800 font-semibold mb-1">Hasil Prediksi AI</h3>
+            <div className="prose prose-sm max-w-none text-gray-700 min-h-[60px]">
+              {loading ? (
+                <div className="animate-pulse space-y-2">
+                  <div className="h-4 bg-lime-100 rounded w-3/4"></div>
+                  <div className="h-4 bg-lime-100 rounded w-2/4"></div>
+                  <div className="h-4 bg-lime-100 rounded w-1/2"></div>
+                  <div className="h-4 bg-lime-100 rounded w-1/3"></div>
+                </div>
+              ) : (
+                <div className={`transition-opacity duration-700 ${showFade ? 'opacity-100' : 'opacity-0'}`}>
+                  <ReactMarkdown
+                    components={{
+                      h1: (props) => <h1 className="text-2xl font-bold text-lime-800 mt-4 mb-2" {...props} />,
+                      h2: (props) => <h2 className="text-xl font-bold text-lime-700 mt-4 mb-2" {...props} />,
+                      h3: (props) => <h3 className="text-lg font-semibold text-lime-700 mt-3 mb-1" {...props} />,
+                      ul: (props) => <ul className="list-disc list-inside space-y-1" {...props} />,
+                      ol: (props) => <ol className="list-decimal list-inside space-y-1" {...props} />,
+                      li: (props) => <li className="ml-4" {...props} />,
+                      p: (props) => <p className="mb-2" {...props} />,
+                      code: (props) => <code className="bg-gray-100 px-1 rounded text-xs" {...props} />,
+                      pre: (props) => <pre className="bg-gray-100 p-2 rounded mb-2 overflow-x-auto" {...props} />,
+                      a: (props) => <a className="text-blue-600 underline" target="_blank" rel="noopener noreferrer" {...props} />,
+                      table: (props) => <table className="table-auto border-collapse my-2" {...props} />,
+                      th: (props) => <th className="border px-2 py-1 bg-gray-100" {...props} />,
+                      td: (props) => <td className="border px-2 py-1" {...props} />,
+                    }}
+                  >
+                    {result}
+                  </ReactMarkdown>
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
