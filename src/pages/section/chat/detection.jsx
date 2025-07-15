@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { FaCamera, FaCloudUploadAlt } from "react-icons/fa";
 import { CameraModal } from "../../../components/modal/cameraModal";
-import { predictPlantDiseaseWithGroq } from "../../../lib/services/groqPredict";
+// import { predictPlantDiseaseWithGroq } from "../../../lib/services/groqPredict";
 import ReactMarkdown from "react-markdown";
 
 export function PlantDiseaseDetection() {
@@ -11,7 +11,6 @@ export function PlantDiseaseDetection() {
   const [result, setResult] = useState(null); 
   const [loading, setLoading] = useState(false);
   const [showFade, setShowFade] = useState(false);
-  // typewriter effect dihapus, diganti skeleton loading
 
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
@@ -40,13 +39,34 @@ export function PlantDiseaseDetection() {
     setResult(null);
   };
 
+  // Helper: Convert dataURL to Blob
+  function dataURLtoBlob(dataurl) {
+    const arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1], bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);
+    for (let i = 0; i < n; i++) u8arr[i] = bstr.charCodeAt(i);
+    return new Blob([u8arr], { type: mime });
+  }
+
   const submitPrediction = async () => {
     setLoading(true);
     setResult(null);
     setShowFade(false);
     try {
-      const text = await predictPlantDiseaseWithGroq({ preview });
-      setResult(text);
+      // Ubah preview (dataURL) menjadi Blob
+      const blob = dataURLtoBlob(preview);
+      const formData = new FormData();
+      formData.append("file", blob, "image.jpg");
+
+      const response = await fetch("http://localhost:8000/predict", {
+        method: "POST",
+        body: formData
+      });
+      const data = await response.json();
+      // Tampilkan hasil prediksi secara markdown
+      setResult(
+        data.label
+          ? `**${data.label}**\n\n**Akurasi:** ${data.confidence}%\n\n**Deskripsi:** ${data.deskripsi}\n\n**Rekomendasi Obat:**\n${Array.isArray(data.obat_rekomendasi) && data.obat_rekomendasi.length > 0 ? data.obat_rekomendasi.map((o) => `- ${o}`).join("\n") : "Tidak ada rekomendasi."}`
+          : "Tidak ada respons dari AI."
+      );
     } catch {
       setResult("Terjadi kesalahan saat memproses prediksi.");
     } finally {
@@ -68,7 +88,7 @@ export function PlantDiseaseDetection() {
     <section className="bg-[#f7fff4] py-10">
       <div className="container mx-auto mt-8 px-4 sm:px-6 md:px-10 py-8 bg-white rounded-2xl shadow-sm">
         <h2 className="text-3xl font-bold text-lime-800 mb-2 text-center sm:text-left">
-          Prediksi Penyakit Tanaman
+          Cek Penyakit Tanaman
         </h2>
         <p className="mb-6 text-gray-600">Cek kesehatan tanamanmu dengan AI kami</p>
 
