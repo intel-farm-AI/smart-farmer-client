@@ -1,3 +1,4 @@
+import FloatingAboutButton from "../components/modal/aboutModal";
 import { MainLayout } from "../layout/main";
 import { Banner } from "./section/main/banner";
 import { Describe } from "./section/main/describe";
@@ -21,6 +22,11 @@ export function Home() {
       <Testimoni />
       {/* Let's Join Us */}
       <Join />
+
+      {/* about modal */}
+      <div className="fixed bottom-4 right-4 z-50">
+        <FloatingAboutButton />
+      </div>
 
     </MainLayout>
   );

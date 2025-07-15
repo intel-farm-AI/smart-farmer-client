@@ -15,6 +15,7 @@ import Login from './pages/auth/login';
 import { Register } from './pages/auth/register';
 import TaskForm from './pages/taskform';
 import ListAllTasks from './pages/listAllTasks';
+import About from './pages/about';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <LocationProvider>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={
             <RequireAuth>
               <ChatWithAI />
@@ -47,7 +49,7 @@ function App() {
               <Register />
             </RedirectIfAuth>
           } />
-          <Route path="*" element={<div className="text-center text-2xl">Halaman tidak ditemukan</div>} />
+          <Route path="*" element={<div className="flex items-center justify-center min-h-screen w-full text-center">404 | Halaman tidak ditemukan</div>} />
         </Routes>
       </LocationProvider>
     </AuthProvider>

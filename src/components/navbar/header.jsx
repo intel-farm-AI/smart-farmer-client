@@ -58,23 +58,29 @@ export function Header({ withNavigation }) {
           />
           <span className="text-2xl font-extrabold tracking-tight drop-shadow">Smartfarm AI</span>
         </Link>
-        { user ? (
-          <div className="relative ml-4" ref={dropdownRef}>
+        {user ? (
+          <div className="flex items-center gap-2 ml-4 relative" ref={dropdownRef}>
+            {withNavigation && (
+              <Link to="/dashboard" className="text-white hover:opacity-90 transition text-base font-medium">
+                Dashboard
+              </Link>
+            )}
             <button
-              className="flex items-center gap-3 bg-white text-lime-800 px-4 py-2 rounded-lg font-semibold shadow focus:outline-none"
+              className="focus:outline-none"
               onClick={() => setShowDropdown((v) => !v)}
               aria-haspopup="true"
               aria-expanded={showDropdown}
+              style={{ background: 'none', padding: 0, border: 'none' }}
             >
               <img
                 src={avatarUrl}
                 alt={displayNameShort}
                 className="w-8 h-8 rounded-full object-cover border border-lime-200"
               />
-              <span className="max-w-[120px] truncate">{displayNameShort}</span>
             </button>
             {showDropdown && (
-              <div className="absolute right-0 mt-2 w-44 bg-white rounded-lg shadow-lg border border-gray-100 z-50 animate-fadeIn">
+              <div className="absolute left-1/2 -translate-x-1/2 mt-3 w-44 bg-white rounded-lg shadow-lg border border-gray-100 z-50 animate-fadeIn"
+                   style={{ minWidth: '11rem' }}>
                 <button
                   className="flex items-center gap-2 w-full px-4 py-2 text-lime-800 hover:bg-lime-50 rounded-lg font-semibold transition"
                   onClick={async () => {

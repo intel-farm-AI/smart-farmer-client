@@ -3,6 +3,14 @@ import { useQuery } from "@tanstack/react-query";
 import { getWeatherForecast } from "../../../lib/services/getWeatherForecast";
 import { LocationContext } from "../../../context/locationContext";
 import { getAuth } from "firebase/auth";
+import {
+  fetchProvinsi,
+  fetchKabupaten,
+  fetchKecamatan,
+  fetchKelurahan,
+  getLocationCoordinates,
+  reverseGeocode
+} from "../../../lib/utils/location";
 
 export function Weather() {
   const { location, locationChecked } = useContext(LocationContext);
@@ -11,77 +19,109 @@ export function Weather() {
 
   const [mode, setMode] = useState("otomatis");
   const [provinsi, setProvinsi] = useState("");
-  const [kota, setKota] = useState("");
+  const [kabupaten, setKabupaten] = useState("");
+  const [kecamatan, setKecamatan] = useState("");
+  const [kelurahan, setKelurahan] = useState("");
 
-  const lokasiManualData = useMemo(() => ({
-    JawaBarat: {
-      Bandung: { lat: -6.9147, lon: 107.6098 },
-      Karawang: { lat: -6.3059, lon: 107.3095 },
-    },
-    JawaTengah: {
-      Semarang: { lat: -7.0051, lon: 110.4381 },
-      Solo: { lat: -7.5653, lon: 110.816 },
-    },
-  }), []);
+  // States untuk data location API
+  const [provinsiList, setProvinsiList] = useState([]);
+  const [kabupatenList, setKabupatenList] = useState([]);
+  const [kecamatanList, setKecamatanList] = useState([]);
+  const [kelurahanList, setKelurahanList] = useState([]);
+  const [loadingProvinsi, setLoadingProvinsi] = useState(false);
+  const [loadingKabupaten, setLoadingKabupaten] = useState(false);
+  const [loadingKecamatan, setLoadingKecamatan] = useState(false);
+  const [loadingKelurahan, setLoadingKelurahan] = useState(false);
 
   // State for reverse geocoded name
   const [autoLocationName, setAutoLocationName] = useState("");
   const [loadingAutoLocation, setLoadingAutoLocation] = useState(false);
   const [errorAutoLocation, setErrorAutoLocation] = useState("");
 
-  // Reverse geocode function with localStorage cache
-  const reverseGeocode = async (lat, lon) => {
-    const cacheKey = `reverseGeocode_${lat}_${lon}`;
-    const cached = localStorage.getItem(cacheKey);
-    if (cached) {
-      return cached;
-    }
-    try {
-      const response = await fetch(
-        `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&addressdetails=1&accept-language=id`
-      );
-      const data = await response.json();
-      let result = "Lokasi tidak diketahui";
-      if (data && data.address) {
-        const address = data.address;
-        // Gabungkan nama daerah secara lengkap
-        const parts = [];
-        if (address.village) parts.push(address.village);
-        if (address.hamlet && !parts.includes(address.hamlet)) parts.push(address.hamlet);
-        if (address.suburb && !parts.includes(address.suburb)) parts.push(address.suburb);
-        if (address.town && !parts.includes(address.town)) parts.push(address.town);
-        if (address.city_district && !parts.includes(address.city_district)) parts.push(address.city_district);
-        if (address.county && !parts.includes(address.county)) parts.push(address.county);
-        if (address.city && !parts.includes(address.city)) parts.push(address.city);
-        if (address.state_district && !parts.includes(address.state_district)) parts.push(address.state_district);
-        if (address.state && !parts.includes(address.state)) parts.push(address.state);
-        if (address.country && !parts.includes(address.country)) parts.push(address.country);
-        if (parts.length > 0) {
-          result = parts.join(", ");
-        }
-      }
-      localStorage.setItem(cacheKey, result);
-      return result;
-    } catch {
-      return "Lokasi tidak diketahui";
-    }
-  };
 
-  // Effect for auto mode: fetch area name when lat/lon changes
+
+
+  // Load provinsi saat component mount
+  useEffect(() => {
+    setLoadingProvinsi(true);
+    fetchProvinsi()
+      .then((data) => setProvinsiList(data))
+      .catch((error) => console.error('Error fetching provinsi:', error))
+      .finally(() => setLoadingProvinsi(false));
+  }, []);
+
+
+  // Load kabupaten saat provinsi berubah
+  useEffect(() => {
+    if (provinsi) {
+      setLoadingKabupaten(true);
+      fetchKabupaten(provinsi)
+        .then((data) => setKabupatenList(data))
+        .catch((error) => console.error('Error fetching kabupaten:', error))
+        .finally(() => setLoadingKabupaten(false));
+      setKabupaten("");
+      setKecamatan("");
+      setKelurahan("");
+      setKabupatenList([]);
+      setKecamatanList([]);
+      setKelurahanList([]);
+    }
+  }, [provinsi]);
+
+
+  // Load kecamatan saat kabupaten berubah
+  useEffect(() => {
+    if (kabupaten) {
+      setLoadingKecamatan(true);
+      fetchKecamatan(kabupaten)
+        .then((data) => setKecamatanList(data))
+        .catch((error) => console.error('Error fetching kecamatan:', error))
+        .finally(() => setLoadingKecamatan(false));
+      setKecamatan("");
+      setKelurahan("");
+      setKecamatanList([]);
+      setKelurahanList([]);
+    }
+  }, [kabupaten]);
+
+
+  // Load kelurahan saat kecamatan berubah
+  useEffect(() => {
+    if (kecamatan) {
+      setLoadingKelurahan(true);
+      fetchKelurahan(kecamatan)
+        .then((data) => setKelurahanList(data))
+        .catch((error) => console.error('Error fetching kelurahan:', error))
+        .finally(() => setLoadingKelurahan(false));
+      setKelurahan("");
+      setKelurahanList([]);
+    }
+  }, [kecamatan]);
+
+
+
+  // Effect untuk auto mode dengan debounce
   useEffect(() => {
     if (mode === "otomatis" && location.lat && location.lon) {
       setLoadingAutoLocation(true);
       setErrorAutoLocation("");
-      reverseGeocode(location.lat, location.lon)
-        .then((name) => {
-          setAutoLocationName(name);
-          setLoadingAutoLocation(false);
-        })
-        .catch(() => {
-          setAutoLocationName("");
-          setErrorAutoLocation("Gagal memuat nama lokasi.");
-          setLoadingAutoLocation(false);
-        });
+      
+      // Add small delay to avoid rapid API calls
+      const timeoutId = setTimeout(() => {
+        reverseGeocode(location.lat, location.lon)
+          .then((name) => {
+            setAutoLocationName(name);
+            setLoadingAutoLocation(false);
+          })
+          .catch((error) => {
+            console.error('Reverse geocoding error:', error);
+            setAutoLocationName("");
+            setErrorAutoLocation("Gagal memuat nama lokasi.");
+            setLoadingAutoLocation(false);
+          });
+      }, 300);
+
+      return () => clearTimeout(timeoutId);
     } else {
       setAutoLocationName("");
       setLoadingAutoLocation(false);
@@ -89,25 +129,46 @@ export function Weather() {
     }
   }, [mode, location.lat, location.lon]);
 
-  // Compose lokasiDipakai for query
-  const lokasiDipakai = useMemo(() => {
+
+  // Compose lokasiDipakai untuk query
+  const lokasiDipakai = useMemo(async () => {
     if (mode === "otomatis") {
       return { lat: location.lat, lon: location.lon, label: autoLocationName || location.label || "" };
     }
-    const selected = lokasiManualData?.[provinsi]?.[kota];
-    return selected
-      ? { ...selected, label: `${kota}, ${provinsi}` }
-      : { lat: null, lon: null, label: "" };
-  }, [mode, location, provinsi, kota, autoLocationName, lokasiManualData]);
+    if (kelurahan) {
+      const kelurahanObj = kelurahanList.find(k => k.id === kelurahan);
+      const kecamatanObj = kecamatanList.find(k => k.id === kecamatan);
+      const kabupatenObj = kabupatenList.find(k => k.id === kabupaten);
+      const provinsiObj = provinsiList.find(p => p.id === provinsi);
+      const locationName = `${kelurahanObj?.name}, ${kecamatanObj?.name}, ${kabupatenObj?.name}, ${provinsiObj?.name}, Indonesia`;
+      const coordinates = await getLocationCoordinates(locationName);
+      return coordinates 
+        ? { ...coordinates, label: locationName }
+        : { lat: null, lon: null, label: "" };
+    }
+    return { lat: null, lon: null, label: "" };
+  }, [mode, location, provinsi, kabupaten, kecamatan, kelurahan, autoLocationName, provinsiList, kabupatenList, kecamatanList, kelurahanList]);
+
+  // State untuk menyimpan lokasi yang sudah diproses
+  const [processedLocation, setProcessedLocation] = useState({ lat: null, lon: null, label: "" });
+
+  // Effect untuk memproses lokasi async
+  useEffect(() => {
+    const processLocation = async () => {
+      const result = await lokasiDipakai;
+      setProcessedLocation(result);
+    };
+    processLocation();
+  }, [lokasiDipakai]);
 
   const {
     data: forecast = [],
     isLoading: loadingWeather,
     isError,
   } = useQuery({
-    queryKey: ['weatherForecast', mode, lokasiDipakai.lat, lokasiDipakai.lon],
-    queryFn: () => getWeatherForecast(lokasiDipakai.lat, lokasiDipakai.lon),
-    enabled: !!lokasiDipakai.lat && !!lokasiDipakai.lon,
+    queryKey: ['weatherForecast', mode, processedLocation.lat, processedLocation.lon],
+    queryFn: () => getWeatherForecast(processedLocation.lat, processedLocation.lon),
+    enabled: !!processedLocation.lat && !!processedLocation.lon,
     staleTime: 1000 * 60 * 10,
   });
 
@@ -116,9 +177,7 @@ export function Weather() {
   // Cek apakah hari ini atau besok hujan
   let rainWarning = null;
   if (forecast && forecast.length > 0) {
-    // Cek hari ini
     const todayRain = /hujan/i.test(forecast[0]?.kondisi || "");
-    // Cek besok
     const besokRain = forecast[1] && /hujan/i.test(forecast[1]?.kondisi || "");
     if (todayRain) {
       rainWarning = {
@@ -167,44 +226,84 @@ export function Weather() {
         </p>
         <hr className="border border-gray-100 mb-6" />
 
-        <div className="mb-6 flex flex-col md:flex-row gap-4 items-start md:items-center">
-          <label className="font-medium text-gray-700">Mode Lokasi:</label>
-          <select
-            value={mode}
-            onChange={(e) => setMode(e.target.value)}
-            className="border rounded px-3 py-2"
-          >
-            <option value="otomatis">Lokasi saat ini</option>
-            <option value="manual">Pilih Manual</option>
-          </select>
+        <div className="mb-6 flex flex-col gap-4">
+          <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
+            <label className="font-medium text-gray-700">Mode Lokasi:</label>
+            <select
+              value={mode}
+              onChange={(e) => setMode(e.target.value)}
+              className="border rounded px-3 py-2"
+            >
+              <option value="otomatis">Lokasi saat ini</option>
+              <option value="manual">Pilih Manual</option>
+            </select>
+          </div>
 
           {mode === "manual" && (
-            <div className="flex flex-col md:flex-row gap-4">
-              <select
-                value={provinsi}
-                onChange={(e) => {
-                  setProvinsi(e.target.value);
-                  setKota(""); // reset kota saat provinsi berubah
-                }}
-                className="border rounded px-3 py-2"
-              >
-                <option value="">Pilih Provinsi</option>
-                {Object.keys(lokasiManualData).map((prov) => (
-                  <option key={prov} value={prov}>{prov}</option>
-                ))}
-              </select>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Provinsi</label>
+                <select
+                  value={provinsi}
+                  onChange={(e) => setProvinsi(e.target.value)}
+                  className="w-full border rounded px-3 py-2"
+                  disabled={loadingProvinsi}
+                >
+                  <option value="">Pilih Provinsi</option>
+                  {provinsiList.map((prov) => (
+                    <option key={prov.id} value={prov.id}>{prov.name}</option>
+                  ))}
+                </select>
+                {loadingProvinsi && <div className="text-sm text-gray-500 mt-1">Loading...</div>}
+              </div>
 
-              <select
-                value={kota}
-                onChange={(e) => setKota(e.target.value)}
-                className="border rounded px-3 py-2"
-                disabled={!provinsi}
-              >
-                <option value="">Pilih Kota/Kabupaten</option>
-                {provinsi && Object.keys(lokasiManualData[provinsi]).map((kota) => (
-                  <option key={kota} value={kota}>{kota}</option>
-                ))}
-              </select>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Kabupaten/Kota</label>
+                <select
+                  value={kabupaten}
+                  onChange={(e) => setKabupaten(e.target.value)}
+                  className="w-full border rounded px-3 py-2"
+                  disabled={!provinsi || loadingKabupaten}
+                >
+                  <option value="">Pilih Kabupaten/Kota</option>
+                  {kabupatenList.map((kab) => (
+                    <option key={kab.id} value={kab.id}>{kab.name}</option>
+                  ))}
+                </select>
+                {loadingKabupaten && <div className="text-sm text-gray-500 mt-1">Loading...</div>}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Kecamatan</label>
+                <select
+                  value={kecamatan}
+                  onChange={(e) => setKecamatan(e.target.value)}
+                  className="w-full border rounded px-3 py-2"
+                  disabled={!kabupaten || loadingKecamatan}
+                >
+                  <option value="">Pilih Kecamatan</option>
+                  {kecamatanList.map((kec) => (
+                    <option key={kec.id} value={kec.id}>{kec.name}</option>
+                  ))}
+                </select>
+                {loadingKecamatan && <div className="text-sm text-gray-500 mt-1">Loading...</div>}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Kelurahan/Desa</label>
+                <select
+                  value={kelurahan}
+                  onChange={(e) => setKelurahan(e.target.value)}
+                  className="w-full border rounded px-3 py-2"
+                  disabled={!kecamatan || loadingKelurahan}
+                >
+                  <option value="">Pilih Kelurahan/Desa</option>
+                  {kelurahanList.map((kel) => (
+                    <option key={kel.id} value={kel.id}>{kel.name}</option>
+                  ))}
+                </select>
+                {loadingKelurahan && <div className="text-sm text-gray-500 mt-1">Loading...</div>}
+              </div>
             </div>
           )}
         </div>
@@ -220,16 +319,16 @@ export function Weather() {
                   <span className="text-lime-800 font-semibold animate-pulse ml-2">Memuat lokasi…</span>
                 ) : errorAutoLocation ? (
                   <span className="text-red-500 font-semibold ml-2">{errorAutoLocation}</span>
-                ) : !lokasiDipakai.label || lokasiDipakai.label === "Lokasi tidak diketahui" ? (
+                ) : !processedLocation.label || processedLocation.label === "Lokasi tidak diketahui" ? (
                   <span className="text-gray-400 font-semibold ml-2">Lokasi belum terdeteksi</span>
                 ) : (
-                  <span className="text-lime-800 font-semibold ml-2">{lokasiDipakai.label}</span>
+                  <span className="text-lime-800 font-semibold ml-2">{processedLocation.label}</span>
                 )
               ) : (
-                !provinsi || !kota ? (
+                !kelurahan ? (
                   <span className="text-gray-400 font-semibold ml-2">Pilih lokasi manual</span>
                 ) : (
-                  <span className="text-lime-800 font-semibold ml-2">{lokasiDipakai.label}</span>
+                  <span className="text-lime-800 font-semibold ml-2">{processedLocation.label}</span>
                 )
               )}
             </div>
