@@ -48,7 +48,7 @@ export function Header({ withNavigation }) {
   }, [showDropdown]);
 
   return (
-    <header className="bg-lime-800 text-white w-full sticky top-0 z-50 shadow">
+    <header className="bg-green-800 text-white w-full sticky top-0 z-50 shadow">
       <div className="container mx-auto flex flex-row justify-between items-center py-3 px-4">
         <Link to="/" className="flex items-center gap-3 text-white hover:opacity-90">
           <img
@@ -75,14 +75,14 @@ export function Header({ withNavigation }) {
               <img
                 src={avatarUrl}
                 alt={displayNameShort}
-                className="w-8 h-8 rounded-full object-cover border border-lime-200"
+                className="w-8 h-8 rounded-full object-cover border border-green-200"
               />
             </button>
             {showDropdown && (
               <div className="absolute left-1/2 -translate-x-1/2 mt-3 w-44 bg-white rounded-lg shadow-lg border border-gray-100 z-50 animate-fadeIn"
                    style={{ minWidth: '11rem' }}>
                 <button
-                  className="flex items-center gap-2 w-full px-4 py-2 text-lime-800 hover:bg-lime-50 rounded-lg font-semibold transition"
+                  className="flex items-center gap-2 w-full px-4 py-2 text-green-800 hover:bg-green-50 rounded-lg font-semibold transition"
                   onClick={async () => {
                     setShowDropdown(false);
                     const auth = getAuth(app);
@@ -103,7 +103,7 @@ export function Header({ withNavigation }) {
           withNavigation && (
             <Link
               to="/login"
-              className="bg-white text-lime-800 px-5 py-2 rounded-lg font-semibold shadow hover:bg-lime-100 transition-all ml-4"
+              className="bg-white text-green-800 px-5 py-2 rounded-lg font-semibold shadow hover:bg-green-100 transition-all ml-4"
             >
               Mulai Sekarang
             </Link>

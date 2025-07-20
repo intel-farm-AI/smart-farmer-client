@@ -13,9 +13,10 @@ import { Home } from './pages';
 import { ChatWithAI } from './pages/chatwithai';
 import Login from './pages/auth/login';
 import { Register } from './pages/auth/register';
-import TaskForm from './pages/taskform';
 import ListAllTasks from './pages/listAllTasks';
 import About from './pages/about';
+import PredictionPage from './pages/prediction';
+import MarketPrice from './pages/market';
 
 function App() {
   return (
@@ -29,14 +30,19 @@ function App() {
               <ChatWithAI />
             </RequireAuth>
           } />
-          <Route path="/dashboard/addtask" element={
+          <Route path="/prediction" element={
             <RequireAuth>
-              <TaskForm />
+              <PredictionPage />
             </RequireAuth>
           } />
           <Route path="/dashboard/listTasks" element={
             <RequireAuth>
               <ListAllTasks />
+            </RequireAuth>
+          } />
+          <Route path="/market" element={
+            <RequireAuth>
+              <MarketPrice />
             </RequireAuth>
           } />
           <Route path="/login" element={

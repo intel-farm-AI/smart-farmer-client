@@ -44,14 +44,14 @@ export default function Login() {
         </div>
 
         <div className="w-full md:w-1/2 max-w-md bg-white rounded-lg shadow-md p-8">
-          <h2 className="text-3xl font-bold text-lime-800 text-center">Login Akun</h2>
-          <p className="mb-6 text-center text-lime-900">Masuk untuk melanjutkan</p>
+          <h2 className="text-3xl font-bold text-green-800 text-center">Login Akun</h2>
+          <p className="mb-6 text-center text-green-900">Masuk untuk melanjutkan</p>
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label className="block mb-1 text-sm font-medium text-gray-700">Email</label>
               <input
                 type="email"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                 placeholder="Masukkan email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -62,7 +62,7 @@ export default function Login() {
               <label className="block mb-1 text-sm font-medium text-gray-700">Password</label>
               <input
                 type="password"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-lime-500"
+                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                 placeholder="Masukkan password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -75,7 +75,7 @@ export default function Login() {
             )}
             <button
               type="submit"
-              className="w-full bg-lime-600 hover:bg-lime-700 text-white px-4 py-2 rounded-lg font-semibold transition duration-200"
+              className="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition duration-200"
               disabled={loading}
             >
               {loading ? "Masuk..." : "Login"}
@@ -102,7 +102,7 @@ export default function Login() {
             </button>
             <p className="text-gray-500 text-sm mt-2">
               Belum punya akun?{" "}
-              <Link to="/register" className="text-lime-700 hover:underline">
+              <Link to="/register" className="text-green-700 hover:underline">
                 Daftar
               </Link>
             </p>

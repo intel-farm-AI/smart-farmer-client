@@ -78,9 +78,9 @@ export function CameraModal({ onClose, onUseImage }) {
             &times;
           </button>
 
-          <h2 className="text-lg font-semibold text-lime-800 mb-4 text-center">Ambil Gambar dari Kamera</h2>
+          <h2 className="text-lg font-semibold text-green-800 mb-4 text-center">Ambil Gambar dari Kamera</h2>
 
-          <div className="aspect-video w-full min-h-[350px] bg-gray-100 flex items-center justify-center rounded-xl mb-8 border border-lime-100 overflow-hidden">
+          <div className="aspect-video w-full min-h-[350px] bg-gray-100 flex items-center justify-center rounded-xl mb-8 border border-green-100 overflow-hidden">
             {!captured ? (
               <video
                 ref={videoRef}
@@ -102,7 +102,7 @@ export function CameraModal({ onClose, onUseImage }) {
             {!captured ? (
               <button
                 onClick={handleCapture}
-                className="px-4 py-2 rounded text-sm font-medium bg-lime-100 hover:bg-lime-200 text-lime-700 border border-lime-200 transition"
+                className="px-4 py-2 rounded text-sm font-medium bg-green-100 hover:bg-green-200 text-green-700 border border-green-200 transition"
               >
                 Ambil Gambar
               </button>
@@ -110,7 +110,7 @@ export function CameraModal({ onClose, onUseImage }) {
               <>
                 <button
                   onClick={handleUseImage}
-                  className="px-4 py-2 rounded text-sm font-medium bg-lime-600 hover:bg-lime-700 text-white shadow transition"
+                  className="px-4 py-2 rounded text-sm font-medium bg-green-600 hover:bg-green-700 text-white shadow transition"
                 >
                   Gunakan Gambar Ini
                 </button>
