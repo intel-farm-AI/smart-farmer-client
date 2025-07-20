@@ -23,7 +23,7 @@ export default function TaskFormModal({ onClose }) {
     const uid = getAuth().currentUser?.uid;
     if (!uid) return;
 
-    const landsRef = ref(db, `users/${uid}/lands`);
+    const landsRef = ref(db, `/lands/${uid}`);
     const unsubscribe = onValue(landsRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {

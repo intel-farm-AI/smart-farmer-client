@@ -92,7 +92,6 @@ export default function Login() {
                   navigate("/dashboard");
                 } catch (error) {
                   console.error(error);
-                  alert("Gagal login dengan Google");
                 }
               }}
               className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-semibold border border-gray-300 bg-white shadow-sm hover:bg-gray-50 hover:shadow-md transition duration-200 text-gray-700"

@@ -20,7 +20,7 @@ export default function About() {
           </svg>
           Kembali
         </button>
-        <h1 className="text-4xl font-bold mb-2 mt-8">Mengenal Tim Kami</h1>
+        <h1 className="text-4xl font-bold mb-2 mt-8">Mengenal Tim Agrify</h1>
         <p className="mb-8 text-lg text-gray-600 max-w-xl mx-auto">Kami adalah tim yang berdedikasi untuk mengembangkan solusi AI untuk pertanian.</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-center items-center w-full max-w-5xl px-2">
           {team.map((member) => (

@@ -10,7 +10,6 @@ const navItems = [
   { label: "Dashboard", to: "/dashboard", icon: <FiHome /> },
   { label: "Harga Pasar", to: "/market", icon: <FiTrendingUp /> },
   { label: "Cek Penyakit", to: "/prediction", icon: <FiActivity /> },
-  { label: "Pengaturan", to: "#", icon: <FiSettings /> }, 
 ];
 
   return (
