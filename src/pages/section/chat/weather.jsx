@@ -38,9 +38,6 @@ export function Weather() {
   const [loadingAutoLocation, setLoadingAutoLocation] = useState(false);
   const [errorAutoLocation, setErrorAutoLocation] = useState("");
 
-
-
-
   // Load provinsi saat component mount
   useEffect(() => {
     setLoadingProvinsi(true);
@@ -49,7 +46,6 @@ export function Weather() {
       .catch((error) => console.error('Error fetching provinsi:', error))
       .finally(() => setLoadingProvinsi(false));
   }, []);
-
 
   // Load kabupaten saat provinsi berubah
   useEffect(() => {
@@ -68,7 +64,6 @@ export function Weather() {
     }
   }, [provinsi]);
 
-
   // Load kecamatan saat kabupaten berubah
   useEffect(() => {
     if (kabupaten) {
@@ -84,7 +79,6 @@ export function Weather() {
     }
   }, [kabupaten]);
 
-
   // Load kelurahan saat kecamatan berubah
   useEffect(() => {
     if (kecamatan) {
@@ -97,8 +91,6 @@ export function Weather() {
       setKelurahanList([]);
     }
   }, [kecamatan]);
-
-
 
   // Effect untuk auto mode dengan debounce
   useEffect(() => {
@@ -128,7 +120,6 @@ export function Weather() {
       setErrorAutoLocation("");
     }
   }, [mode, location.lat, location.lon]);
-
 
   // Compose lokasiDipakai untuk query
   const lokasiDipakai = useMemo(async () => {
@@ -195,44 +186,69 @@ export function Weather() {
   }
 
   return (
-    <section className="bg-green-50 py-1">
-      <div className="container mx-auto mt-8 px-4 sm:px-6 md:px-10 py-8 bg-white rounded-2xl shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 gap-2">
-          <div>
-            <h2 className="text-3xl font-bold text-green-800 text-center sm:text-left mb-1 sm:mb-0">
+    <>
+        {/* Header Section */}
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-10 pt-20 gap-8">
+          <div className="space-y-3">
+            <h2 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-emerald-400 via-emerald-300 to-teal-400 bg-clip-text text-transparent text-center lg:text-left">
               Selamat Datang{user && user.displayName ? ` ${user.displayName}` : ''}!
             </h2>
-            <div className="text-gray-500 text-center sm:text-left">
-              {new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+            <div className="flex items-center justify-center lg:justify-start gap-3 text-slate-300">
+              <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span className="font-medium text-lg">
+                {new Date().toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+              </span>
             </div>
           </div>
+          
           {rainWarning && (
-            <div className="flex flex-col items-end sm:items-end">
-              <div className="flex items-center gap-2 bg-yellow-100 border-l-4 border-yellow-500 px-4 py-3 rounded shadow-sm animate-pulse">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <div>
-                  <div className="font-bold text-yellow-700 uppercase text-xs tracking-wider">{rainWarning.label}</div>
-                  <div className="font-bold text-yellow-800 text-lg">{rainWarning.message}</div>
-                  <div className="text-yellow-700 text-sm mt-1">{rainWarning.detail}</div>
+            <div className="flex justify-center lg:justify-end">
+              <div className="bg-gradient-to-r from-amber-600/20 to-orange-600/20 border border-amber-500/30 rounded-2xl p-5 shadow-lg backdrop-blur-sm">
+                <div className="flex items-start gap-4">
+                  <div className="bg-amber-500 rounded-full p-2.5 animate-bounce shadow-lg">
+                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <div className="font-bold text-amber-400 text-xs tracking-wider uppercase mb-1">
+                      {rainWarning.label}
+                    </div>
+                    <div className="font-bold text-amber-300 text-lg leading-tight mb-2">
+                      {rainWarning.message}
+                    </div>
+                    <div className="text-amber-200 text-sm leading-relaxed">
+                      {rainWarning.detail}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           )}
         </div>
-        <p className="text-gray-600 mb-5 text-center sm:text-left">
+
+        <p className="text-slate-300 mb-10 text-center lg:text-left text-lg sm:text-xl">
           Berikut prakiraan cuaca untuk 7 hari ke depan
         </p>
-        <hr className="border border-gray-100 mb-6" />
 
-        <div className="mb-6 flex flex-col gap-4">
-          <div className="flex flex-col md:flex-row gap-4 items-start md:items-center">
-            <label className="font-medium text-gray-700">Mode Lokasi:</label>
+        <div className="h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent mb-10" />
+
+        {/* Location Controls */}
+        <div className="mb-10 space-y-8">
+          <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
+            <label className="font-semibold text-slate-200 flex items-center gap-3 text-lg">
+              <svg className="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              Mode Lokasi:
+            </label>
             <select
               value={mode}
               onChange={(e) => setMode(e.target.value)}
-              className="border rounded px-3 py-2"
+              className="border border-slate-600 rounded-xl px-5 py-4 bg-slate-700/70 text-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-sm"
             >
               <option value="otomatis">Lokasi saat ini</option>
               <option value="manual">Pilih Manual</option>
@@ -240,152 +256,141 @@ export function Weather() {
           </div>
 
           {mode === "manual" && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Provinsi</label>
-                <select
-                  value={provinsi}
-                  onChange={(e) => setProvinsi(e.target.value)}
-                  className="w-full border rounded px-3 py-2"
-                  disabled={loadingProvinsi}
-                >
-                  <option value="">Pilih Provinsi</option>
-                  {provinsiList.map((prov) => (
-                    <option key={prov.id} value={prov.id}>{prov.name}</option>
-                  ))}
-                </select>
-                {loadingProvinsi && <div className="text-sm text-gray-500 mt-1">Loading...</div>}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Kabupaten/Kota</label>
-                <select
-                  value={kabupaten}
-                  onChange={(e) => setKabupaten(e.target.value)}
-                  className="w-full border rounded px-3 py-2"
-                  disabled={!provinsi || loadingKabupaten}
-                >
-                  <option value="">Pilih Kabupaten/Kota</option>
-                  {kabupatenList.map((kab) => (
-                    <option key={kab.id} value={kab.id}>{kab.name}</option>
-                  ))}
-                </select>
-                {loadingKabupaten && <div className="text-sm text-gray-500 mt-1">Loading...</div>}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Kecamatan</label>
-                <select
-                  value={kecamatan}
-                  onChange={(e) => setKecamatan(e.target.value)}
-                  className="w-full border rounded px-3 py-2"
-                  disabled={!kabupaten || loadingKecamatan}
-                >
-                  <option value="">Pilih Kecamatan</option>
-                  {kecamatanList.map((kec) => (
-                    <option key={kec.id} value={kec.id}>{kec.name}</option>
-                  ))}
-                </select>
-                {loadingKecamatan && <div className="text-sm text-gray-500 mt-1">Loading...</div>}
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Kelurahan/Desa</label>
-                <select
-                  value={kelurahan}
-                  onChange={(e) => setKelurahan(e.target.value)}
-                  className="w-full border rounded px-3 py-2"
-                  disabled={!kecamatan || loadingKelurahan}
-                >
-                  <option value="">Pilih Kelurahan/Desa</option>
-                  {kelurahanList.map((kel) => (
-                    <option key={kel.id} value={kel.id}>{kel.name}</option>
-                  ))}
-                </select>
-                {loadingKelurahan && <div className="text-sm text-gray-500 mt-1">Loading...</div>}
+            <div className="bg-slate-700/30 rounded-2xl p-8 border border-slate-600/50 backdrop-blur-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                  { label: "Provinsi", value: provinsi, setter: setProvinsi, options: provinsiList, loading: loadingProvinsi, disabled: false },
+                  { label: "Kabupaten/Kota", value: kabupaten, setter: setKabupaten, options: kabupatenList, loading: loadingKabupaten, disabled: !provinsi },
+                  { label: "Kecamatan", value: kecamatan, setter: setKecamatan, options: kecamatanList, loading: loadingKecamatan, disabled: !kabupaten },
+                  { label: "Kelurahan/Desa", value: kelurahan, setter: setKelurahan, options: kelurahanList, loading: loadingKelurahan, disabled: !kecamatan }
+                ].map((field, index) => (
+                  <div key={index} className="space-y-3">
+                    <label className="block text-sm font-medium text-slate-300">{field.label}</label>
+                    <select
+                      value={field.value}
+                      onChange={(e) => field.setter(e.target.value)}
+                      className="w-full border border-slate-600 rounded-xl px-4 py-3 bg-slate-700/70 text-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 disabled:bg-slate-800/50 disabled:text-slate-500 backdrop-blur-sm"
+                      disabled={field.disabled || field.loading}
+                    >
+                      <option value="">Pilih {field.label}</option>
+                      {field.options.map((option) => (
+                        <option key={option.id} value={option.id}>{option.name}</option>
+                      ))}
+                    </select>
+                    {field.loading && (
+                      <div className="flex items-center gap-2 text-sm text-emerald-400">
+                        <div className="w-4 h-4 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin" />
+                        Loading...
+                      </div>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           )}
         </div>
 
-        <div className="flex flex-col md:flex-row gap-8 items-start justify-between">
-          <div className="w-full md:w-1/3 px-4 md:px-0 md:pr-8 md:border-r md:border-green-200">
-            <div className="mb-3">
-              <span className="text-base font-medium text-gray-700">Lokasi:</span>{" "}
-              {mode === "otomatis" ? (
-                !navigator.onLine ? (
-                  <span className="text-gray-400 font-semibold ml-2">Tidak ada koneksi internet</span>
-                ) : loadingAutoLocation ? (
-                  <span className="text-green-800 font-semibold animate-pulse ml-2">Memuat lokasi…</span>
-                ) : errorAutoLocation ? (
-                  <span className="text-red-500 font-semibold ml-2">{errorAutoLocation}</span>
-                ) : !processedLocation.label || processedLocation.label === "Lokasi tidak diketahui" ? (
-                  <span className="text-gray-400 font-semibold ml-2">Lokasi belum terdeteksi</span>
-                ) : (
-                  <span className="text-green-800 font-semibold ml-2">{processedLocation.label}</span>
-                )
-              ) : (
-                !kelurahan ? (
-                  <span className="text-gray-400 font-semibold ml-2">Pilih lokasi manual</span>
-                ) : (
-                  <span className="text-green-800 font-semibold ml-2">{processedLocation.label}</span>
-                )
-              )}
-            </div>
-            <div className="min-h-[140px]">
-              {loadingWeather && (
-                <div className="flex flex-col animate-pulse">
-                  <div className="w-16 h-16 bg-green-100 rounded-full mb-2" />
-                  <div className="w-24 h-7 bg-green-100 rounded mb-2" />
-                  <div className="w-20 h-5 bg-green-100 rounded mb-2" />
+        {/* Weather Display */}
+        <div className="flex flex-col lg:flex-row gap-10 items-start justify-between">
+          {/* Current Weather */}
+          <div className="w-full lg:w-1/3 pt-10">
+            <div className="bg-gradient-to-br from-emerald-900 via-emerald-800 to-teal-900 rounded-2xl p-8 text-white shadow-xl border border-emerald-700/30 backdrop-blur-sm">
+              <div className="mb-3">
+                <div className="flex items-center gap-1 text-emerald-200 mb-3">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  </svg>
+                  <span className="text-sm font-medium">Lokasi:</span>
                 </div>
-              )}
-              {errorWeather && <span className="text-red-500 text-sm">{errorWeather}</span>}
-              {!loadingWeather && !errorWeather && forecast.length > 0 && (
-                <>
-                  <span className="text-5xl">{forecast[0].icon}</span>
-                  <div className="text-3xl font-bold text-green-700">{forecast[0].suhu}</div>
-                  <div className="text-gray-600 text-md mb-2">{forecast[0].kondisi}</div>
-                </>
-              )}
+                <div className="text-sm font-semibold text-slate-100">
+                  {mode === "otomatis" ? (
+                    !navigator.onLine ? (
+                      <span className="text-emerald-300">Tidak ada koneksi internet</span>
+                    ) : loadingAutoLocation ? (
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                        <span>Memuat lokasi…</span>
+                      </div>
+                    ) : errorAutoLocation ? (
+                      <span className="text-red-300">{errorAutoLocation}</span>
+                    ) : !processedLocation.label || processedLocation.label === "Lokasi tidak diketahui" ? (
+                      <span className="text-emerald-300">Lokasi belum terdeteksi</span>
+                    ) : (
+                      <span>{processedLocation.label}</span>
+                    )
+                  ) : (
+                    !kelurahan ? (
+                      <span className="text-emerald-300">Pilih lokasi manual</span>
+                    ) : (
+                      <span>{processedLocation.label}</span>
+                    )
+                  )}
+                </div>
+              </div>
+              
+              <div className="flex items-center justify-between">
+                {loadingWeather ? (
+                  <div className="flex items-center space-x-6 animate-pulse">
+                    <div className="w-20 h-20 bg-emerald-700 rounded-full" />
+                    <div className="space-y-3">
+                      <div className="w-24 h-10 bg-emerald-700 rounded" />
+                      <div className="w-28 h-5 bg-emerald-700 rounded" />
+                    </div>
+                  </div>
+                ) : errorWeather ? (
+                  <span className="text-red-300 text-sm">{errorWeather}</span>
+                ) : forecast.length > 0 ? (
+                  <>
+                      <div className="text-center">
+                        <span className="text-5xl drop-shadow-lg">{forecast[0].icon}</span>
+                        <div className="text-2xl font-bold mb-2">{forecast[0].suhu}</div>
+                        <div className="text-emerald-200 text-md">{forecast[0].kondisi}</div>
+                      </div>
+                  </>
+                ) : null}
+              </div>
             </div>
           </div>
 
-          <div className="w-full md:flex-1">
-            <h3 className="text-xl font-semibold text-green-700 mb-4 text-center md:text-left">
-              Prakiraan 7 Hari ke Depan
-            </h3>
-
-            <div className="flex md:grid md:grid-cols-4 lg:grid-cols-7 gap-4 overflow-x-auto md:overflow-visible pb-2">
+          {/* 7-Day Forecast */}
+          <div className="w-full">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
               {loadingWeather ? (
                 Array.from({ length: 7 }).map((_, idx) => (
                   <div
                     key={idx}
-                    className="flex flex-col items-center bg-green-100 rounded-xl px-4 py-3 min-w-[110px] md:min-w-0 shadow-sm animate-pulse"
+                    className="bg-slate-700/50 rounded-2xl p-5 space-y-4 animate-pulse backdrop-blur-sm"
                   >
-                    <div className="w-16 h-4 bg-green-200 rounded mb-2" />
-                    <div className="w-8 h-8 bg-green-200 rounded-full mb-2" />
-                    <div className="w-16 h-4 bg-green-200 rounded mb-2" />
-                    <div className="w-20 h-3 bg-green-200 rounded" />
+                    <div className="w-full h-4 bg-slate-600 rounded" />
+                    <div className="w-10 h-10 bg-slate-600 rounded-full mx-auto" />
+                    <div className="w-full h-4 bg-slate-600 rounded" />
+                    <div className="w-full h-3 bg-slate-600 rounded" />
                   </div>
                 ))
               ) : (
                 forecast.map((day, index) => (
                   <div
                     key={index}
-                    className="flex flex-col items-center bg-green-100 rounded-xl px-4 py-3 min-w-[110px] md:min-w-0 shadow-sm hover:scale-105 transition-all"
+                    className={`
+                      bg-slate-700/40 border-2 rounded-2xl p-5 text-center transition-all duration-300 hover:scale-105 hover:shadow-xl cursor-pointer backdrop-blur-sm
+                      ${index === 0 
+                        ? 'border-emerald-500/50 bg-gradient-to-br from-emerald-800/30 to-emerald-700/30 shadow-emerald-500/20' 
+                        : 'border-slate-600/50 hover:border-emerald-500/50 hover:bg-slate-600/50'
+                      }
+                    `}
                   >
-                    <span className="font-semibold text-gray-700 mb-1">{day.hari}</span>
-                    <span className="text-2xl mb-1">{day.icon}</span>
-                    <span className="font-bold text-green-700 text-sm">{day.suhu}</span>
-                    <span className="text-gray-500 text-xs text-center">{day.kondisi}</span>
+                    <div className="space-y-3">
+                      <span className="font-semibold text-slate-200 text-sm sm:text-base block">{day.hari}</span>
+                      <span className="text-3xl sm:text-4xl block">{day.icon}</span>
+                      <span className="font-bold text-emerald-300 text-lg sm:text-xl block">{day.suhu}</span>
+                      <span className="text-slate-300 text-xs leading-tight block">{day.kondisi}</span>
+                    </div>
                   </div>
                 ))
               )}
             </div>
           </div>
         </div>
-      </div>
-    </section>
+    </>
   );
 }

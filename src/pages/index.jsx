@@ -23,11 +23,19 @@ export function Home() {
       {/* Let's Join Us */}
       <Join />
 
-      {/* about modal */}
-      <div className="fixed bottom-4 right-2 z-50">
-        <FloatingAboutButton />
+      {/* Floating About Button - Positioned to avoid interference */}
+      <div className="fixed bottom-6 right-6 z-[9999] lg:bottom-8 lg:right-8">
+        {/* Safe zone container to prevent overlap with other floating elements */}
+        <div className="relative">
+          {/* Invisible collision detection area */}
+          <div className="absolute -inset-4 pointer-events-none" />
+          
+          <FloatingAboutButton />
+        </div>
       </div>
 
+      {/* Optional: Add some padding to main content to ensure button doesn't cover important content on smaller screens */}
+      <div className="h-20 sm:h-16 md:h-0" />
     </MainLayout>
   );
 }
