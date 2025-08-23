@@ -78,7 +78,7 @@ export function Sidebar({ isMobile = false, isOpen = true, onToggle }) {
               <li key={item.to}>
                 <button
                   onClick={() => handleNavClick(item.to)}
-                  className={`group relative flex items-center gap-3 py-3 px-3 rounded-xl font-medium transition-all duration-300 w-full text-left ${
+                  className={`group cursor-pointer relative flex items-center gap-3 py-3 px-3 rounded-xl font-medium transition-all duration-300 w-full text-left ${
                     isActive
                       ? "bg-gradient-to-r from-emerald-600/20 to-emerald-500/20 text-emerald-300 border border-emerald-500/30"
                       : "hover:bg-slate-800/60 text-slate-300 hover:text-white border border-transparent hover:border-slate-700/50"

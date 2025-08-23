@@ -18,7 +18,7 @@ const FloatingAboutButton = () => {
       style={{
         position: "fixed",
         bottom: "32px",
-        right: "32px",
+        right: "1px",
         zIndex: 1000,
         display: "flex",
         flexDirection: "column",

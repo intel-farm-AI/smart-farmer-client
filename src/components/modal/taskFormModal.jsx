@@ -22,6 +22,21 @@ export default function TaskFormModal({ onClose }) {
   const [selectedStrategy, setSelectedStrategy] = useState(null);
   const [weeklySchedule, setWeeklySchedule] = useState([]);
 
+  // Modal options untuk petani
+  const modalOptions = [
+    { value: "500000", label: "Rp 500.000 - Modal Kecil", range: "≤ Rp 1.000.000" },
+    { value: "2000000", label: "Rp 2.000.000 - Modal Menengah Kecil", range: "Rp 1.000.000 - Rp 3.000.000" },
+    { value: "5000000", label: "Rp 5.000.000 - Modal Menengah", range: "Rp 3.000.000 - Rp 7.000.000" },
+    { value: "10000000", label: "Rp 10.000.000 - Modal Besar", range: "Rp 7.000.000 - Rp 15.000.000" },
+    { value: "20000000", label: "Rp 20.000.000 - Modal Sangat Besar", range: "> Rp 15.000.000" }
+  ];
+
+  // Get selected modal info
+  const getSelectedModalInfo = () => {
+    const selected = modalOptions.find(option => option.value === capital);
+    return selected || null;
+  };
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -168,6 +183,36 @@ export default function TaskFormModal({ onClose }) {
       console.error(err);
       setError("Terjadi kesalahan saat menyimpan jadwal.");
     }
+  };
+
+  // Component untuk menampilkan input summary
+  const renderInputSummary = () => {
+    const selectedLandData = lands.find(land => land.id === selectedLand);
+    const modalInfo = getSelectedModalInfo();
+    
+    return (
+      <div className="bg-slate-700/50 border border-slate-600 rounded-lg p-4 mb-6">
+        <h3 className="text-lg font-semibold text-white mb-3">Data Input Anda</h3>
+        <div className="grid grid-cols-2 gap-3 text-sm">
+          <div>
+            <span className="text-slate-400">Lahan:</span>
+            <p className="text-white font-medium">{selectedLandData?.name} ({selectedLandData?.size})</p>
+          </div>
+          <div>
+            <span className="text-slate-400">Komoditas:</span>
+            <p className="text-white font-medium capitalize">{commodity}</p>
+          </div>
+          <div>
+            <span className="text-slate-400">Fase:</span>
+            <p className="text-white font-medium capitalize">{phase}</p>
+          </div>
+          <div>
+            <span className="text-slate-400">Modal Tersedia:</span>
+            <p className="text-emerald-400 font-semibold">{modalInfo?.label}</p>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   // Component Renders
@@ -326,22 +371,27 @@ export default function TaskFormModal({ onClose }) {
         </div>
         
         <div>
-          <label htmlFor="capital-input" className="block text-slate-300 font-medium mb-2">
+          <label htmlFor="capital-select" className="block text-slate-300 font-medium mb-2">
             Modal Tersedia <span className="text-red-400" aria-label="wajib diisi">*</span>
           </label>
-          <input
-            id="capital-input"
-            type="number"
-            min="0"
-            step="1000"
-            className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-4 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all"
+          <select
+            id="capital-select"
+            className="w-full px-4 py-3 bg-slate-800 border border-slate-600 rounded-lg text-white focus:outline-none focus:ring-4 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all"
             value={capital}
             onChange={(e) => setCapital(e.target.value)}
-            placeholder="Masukkan modal dalam Rupiah"
             required
             aria-describedby="capital-help"
-          />
-          <p id="capital-help" className="text-xs text-slate-500 mt-1">Masukkan modal yang tersedia untuk investasi pertanian</p>
+          >
+            <option value="">-- Pilih Rentang Modal --</option>
+            {modalOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          <p id="capital-help" className="text-xs text-slate-500 mt-1">
+            Pilih rentang modal yang sesuai dengan kemampuan finansial Anda
+          </p>
         </div>
         
         {error && (
@@ -388,13 +438,16 @@ export default function TaskFormModal({ onClose }) {
         <h2 className="text-2xl font-bold text-white mb-2">Strategi Rekomendasi</h2>
         <p className="text-slate-400">Pilih paket yang sesuai dengan modal dan target Anda</p>
       </header>
+
+      {/* Input Summary */}
+      {renderInputSummary()}
       
       <div className="space-y-4 max-h-80 overflow-y-auto" role="group" aria-labelledby="strategies-heading">
         <h3 id="strategies-heading" className="sr-only">Daftar strategi yang tersedia</h3>
         {strategies.map((strategy, index) => (
           <article
             key={index}
-            className={`relative overflow-hidden rounded-xl border transition-all duration-300 focus-within:scale-105 hover:scale-105 ${
+            className={`relative overflow-hidden rounded-xl border transition-all duration-300 ${
               strategy.recommended 
                 ? "border-emerald-500 bg-gradient-to-br from-emerald-900/50 to-emerald-800/30" 
                 : "border-slate-600 bg-slate-800/50"
@@ -411,7 +464,7 @@ export default function TaskFormModal({ onClose }) {
               
               <dl className="grid grid-cols-1 gap-3 text-sm">
                 <div className="flex justify-between">
-                  <dt className="text-slate-400">Modal:</dt>
+                  <dt className="text-slate-400">Modal Diperlukan:</dt>
                   <dd className="text-emerald-400 font-semibold">Rp {strategy.cost.toLocaleString()}</dd>
                 </div>
                 <div className="flex justify-between">
@@ -422,6 +475,14 @@ export default function TaskFormModal({ onClose }) {
                   <dt className="text-slate-400">Keuntungan:</dt>
                   <dd className="text-emerald-400 font-semibold">{strategy.profit}</dd>
                 </div>
+                {parseInt(capital) < strategy.cost && (
+                  <div className="bg-amber-900/30 border border-amber-500/50 rounded-lg p-3 mt-2">
+                    <p className="text-amber-300 text-xs">
+                      <span className="font-semibold">Perhatian:</span> Modal Anda mungkin tidak mencukupi untuk strategi ini. 
+                      Pertimbangkan untuk mencari tambahan modal atau pilih strategi lain.
+                    </p>
+                  </div>
+                )}
               </dl>
               
               <button
@@ -449,6 +510,9 @@ export default function TaskFormModal({ onClose }) {
           Rencana kerja untuk {selectedStrategy?.name} - {commodity?.toUpperCase()}
         </p>
       </header>
+
+      {/* Input Summary */}
+      {renderInputSummary()}
       
       <div className="space-y-3 max-h-80 overflow-y-auto" role="group" aria-labelledby="schedule-heading">
         <h3 id="schedule-heading" className="sr-only">Daftar jadwal operasional</h3>
@@ -506,7 +570,10 @@ export default function TaskFormModal({ onClose }) {
         aria-modal="true"
         aria-labelledby="modal-title"
       >
-        <div className="bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700 rounded-2xl shadow-2xl p-6 w-full max-w-lg relative overflow-y-auto max-h-[95vh] animate-modal">
+        <div className="bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700 rounded-2xl shadow-2xl p-6 w-full relative overflow-y-auto animate-modal"
+          // Hapus max-w-lg dan max-h-[95vh]
+          style={{ maxWidth: "100vw", maxHeight: "100vh", width: "auto", height: "auto" }}
+        >
           {/* Close Button */}
           <button
             onClick={onClose}

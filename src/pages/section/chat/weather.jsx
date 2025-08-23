@@ -249,7 +249,7 @@ export function Weather() {
             <select
               value={mode}
               onChange={(e) => setMode(e.target.value)}
-              className="border border-slate-600 rounded-xl px-4 py-4 bg-slate-700/70 text-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-sm"
+              className="border border-slate-600 cursor-pointer rounded-xl px-4 py-4 bg-slate-700/70 text-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-sm"
             >
               <option value="otomatis">Lokasi saat ini</option>
               <option value="manual">Pilih Manual</option>

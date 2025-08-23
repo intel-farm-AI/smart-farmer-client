@@ -52,7 +52,7 @@ export default function AgriculturalLand() {
           </div>
 
           <button
-            className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 group"
+            className="bg-gradient-to-r cursor-pointer from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 group"
             onClick={() => setShowModal(true)}
           >
             <FiPlus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />

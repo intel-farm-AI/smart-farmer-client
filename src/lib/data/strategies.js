@@ -2,20 +2,20 @@
 export const strategiesPadi = [
   {
     name: "Paket Hemat Padi",
-    cost: 12000000,
+    cost: 1200000,
     yield: "5,5 ton/hA",
     profit: "Rp 25 juta",
   },
   {
     name: "Paket Optimal Padi",
     recommended: true,
-    cost: 15000000,
+    cost: 1500000,
     yield: "6,5 ton/hA",
     profit: "Rp 30 juta",
   },
   {
     name: "Paket Intensif Padi",
-    cost: 20000000,
+    cost: 2000000,
     yield: "7,5 ton/hA",
     profit: "Rp 35 juta",
   },
@@ -39,20 +39,20 @@ export const schedulePadi = [
 export const strategiesJagung = [
   {
     name: "Paket Jagung Ekonomis",
-    cost: 10000000,
+    cost: 1000000,
     yield: "5,5 ton/hA",
     profit: "Rp 10 juta",
   },
   {
     name: "Paket Jagung Hibrida",
     recommended: true,
-    cost: 15000000,
+    cost: 1500000,
     yield: "8 ton/hA",
     profit: "Rp 15 juta",
   },
   {
     name: "Paket Jagung Intensif",
-    cost: 20000000,
+    cost: 2000000,
     yield: "10 ton/hA",
     profit: "Rp 20 juta",
   },
@@ -75,20 +75,20 @@ export const scheduleJagung = [
 export const strategiesCabai = [
   {
     name: "Paket Cabai Minimalis",
-    cost: 30000000,
+    cost: 3000000,
     yield: "5 ton/hA",
     profit: "Rp 70 juta",
   },
   {
     name: "Paket Cabai Unggul",
     recommended: true,
-    cost: 40000000,
+    cost: 4000000,
     yield: "6,5 ton/hA",
     profit: "Rp 100 juta",
   },
   {
     name: "Paket Cabai Intensif",
-    cost: 50000000,
+    cost: 5000000,
     yield: "7,5 ton/hA",
     profit: "Rp 130 juta",
   },

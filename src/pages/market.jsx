@@ -12,9 +12,10 @@ const marketData = [
     change: 2.5,
     trend: "up",
     lastUpdate: "2 jam lalu",
-    region: "Jawa Tengah",
+    region: "Jawa Barat",
     quality: "Kualitas Premium"
   },
+  
   {
     id: 2,
     name: "Jagung",
@@ -23,7 +24,7 @@ const marketData = [
     change: -1.2,
     trend: "down",
     lastUpdate: "1 jam lalu",
-    region: "Jawa Timur",
+    region: "Jawa Barat",
     quality: "Kualitas A"
   },
   {
@@ -45,7 +46,7 @@ const marketData = [
     change: 0,
     trend: "stable",
     lastUpdate: "1 jam lalu",
-    region: "Lampung",
+    region: "Jawa Barat",
     quality: "Kualitas B"
   },
   {
@@ -67,7 +68,7 @@ const marketData = [
     change: 5.7,
     trend: "up",
     lastUpdate: "45 menit lalu",
-    region: "Jawa Tengah",
+    region: "Jawa Barat",
     quality: "Kualitas Premium"
   },
   {
@@ -78,7 +79,7 @@ const marketData = [
     change: 1.8,
     trend: "up",
     lastUpdate: "2 jam lalu",
-    region: "Jawa Timur",
+    region: "Jawa Barat",
     quality: "Kualitas A"
   }
 ];

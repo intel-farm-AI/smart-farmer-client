@@ -24,7 +24,7 @@ export function Home() {
       <Join />
 
       {/* Floating About Button - Positioned to avoid interference */}
-      <div className="fixed bottom-6 right-6 z-[9999] lg:bottom-8 lg:right-8">
+      <div className="fixed bottom-2 right-2 z-[9999]">
         {/* Safe zone container to prevent overlap with other floating elements */}
         <div className="relative">
           {/* Invisible collision detection area */}

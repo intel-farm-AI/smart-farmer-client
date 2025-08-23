@@ -96,8 +96,8 @@ export function PlantDiseaseDetection() {
 
           {/* Upload Section */}
           <div className="min-h-[300px] mb-12">
-            <h2 className="text-4xl pb-2 sm:text-5xl font-bold bg-gradient-to-r from-emerald-400 via-emerald-300 to-teal-400 bg-clip-text text-transparent text-center lg:text-left">Plant Disease Detection</h2>
-            <p className="text-slate-300 mb-8 text-center lg:text-left">Use AI to diagnose plant diseases from images</p>
+            <h2 className="text-4xl pb-2 sm:text-5xl font-bold bg-gradient-to-r from-emerald-400 via-emerald-300 to-teal-400 bg-clip-text text-transparent text-center lg:text-left">Deteksi Penyakit Tanaman</h2>
+            <p className="text-slate-300 mb-8 text-center lg:text-left">Gunakan AI untuk mendiagnosis penyakit tanaman dari gambar</p>
             {!preview ? (
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
                 {/* Camera Button */}
@@ -117,10 +117,10 @@ export function PlantDiseaseDetection() {
                         <IoSparkles className="w-4 h-4 text-white" />
                       </div>
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-3">Live Camera</h3>
-                    <p className="text-slate-300 leading-relaxed">Capture plant images instantly with your device camera</p>
+                    <h3 className="text-2xl font-bold text-white mb-3">Kamera Langsung</h3>
+                    <p className="text-slate-300 leading-relaxed">Ambil gambar tanaman secara langsung dengan kamera perangkat Anda</p>
                     <div className="mt-4 px-4 py-2 bg-emerald-900/30 border border-emerald-700/50 rounded-full">
-                      <span className="text-emerald-300 text-sm font-medium">Real-time Analysis</span>
+                      <span className="text-emerald-300 text-sm font-medium">Analisis Real-time</span>
                     </div>
                   </div>
                 </button>
@@ -142,10 +142,10 @@ export function PlantDiseaseDetection() {
                         <IoSparkles className="w-4 h-4 text-white" />
                       </div>
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-3">Upload Image</h3>
-                    <p className="text-slate-300 leading-relaxed">Select plant images from your device gallery</p>
+                    <h3 className="text-2xl font-bold text-white mb-3">Unggah Gambar</h3>
+                    <p className="text-slate-300 leading-relaxed">Pilih gambar tanaman dari galeri perangkat Anda</p>
                     <div className="mt-4 px-4 py-2 bg-cyan-900/30 border border-cyan-700/50 rounded-full">
-                      <span className="text-cyan-300 text-sm font-medium">Batch Processing</span>
+                      <span className="text-cyan-300 text-sm font-medium">Proses Banyak Gambar</span>
                     </div>
                   </div>
                   <input
@@ -166,7 +166,7 @@ export function PlantDiseaseDetection() {
                   <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-3xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
                   <img
                     src={preview}
-                    alt="Plant Image Preview"
+                    alt="Pratinjau Gambar Tanaman"
                     className="relative max-w-lg w-full h-80 object-cover rounded-3xl border-4 border-slate-700/50 shadow-2xl group-hover:shadow-emerald-500/20 transition-all duration-500"
                   />
                   <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -181,7 +181,7 @@ export function PlantDiseaseDetection() {
                     <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     <div className="flex items-center space-x-3 relative z-10">
                       <FaRobot className={`w-5 h-5 ${loading ? 'animate-spin' : 'group-hover:animate-pulse'}`} />
-                      <span>{loading ? "Analyzing..." : "Start AI Analysis"}</span>
+                      <span>{loading ? "Menganalisis..." : "Mulai Analisis AI"}</span>
                       {!loading && <IoSparkles className="w-4 h-4 animate-pulse" />}
                     </div>
                   </button>
@@ -189,7 +189,7 @@ export function PlantDiseaseDetection() {
                     onClick={resetUpload}
                     className="text-red-400 hover:text-red-300 px-8 py-4 rounded-2xl font-bold border-2 border-red-500/30 hover:border-red-400/50 hover:bg-red-900/20 transition-all duration-300 backdrop-blur-sm"
                   >
-                    Remove Image
+                    Hapus Gambar
                   </button>
                 </div>
               </div>
@@ -208,14 +208,14 @@ export function PlantDiseaseDetection() {
                         <FaRobot className="w-6 h-6" />
                       </div>
                       <div>
-                        <h3 className="text-2xl font-bold">AI Analysis Results</h3>
-                        <p className="text-emerald-100 text-sm">Advanced Machine Learning Diagnosis</p>
+                        <h3 className="text-2xl font-bold">Hasil Analisis AI</h3>
+                        <p className="text-emerald-100 text-sm">Diagnosis Machine Learning Lanjutan</p>
                       </div>
                     </div>
                     {result && !loading && (
                       <div className="flex items-center space-x-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl">
                         <FaCheckCircle className="w-5 h-5 text-green-300" />
-                        <span className="font-bold">Complete</span>
+                        <span className="font-bold">Selesai</span>
                       </div>
                     )}
                   </div>
@@ -271,7 +271,7 @@ export function PlantDiseaseDetection() {
                     <div className="flex items-center justify-center h-40 text-slate-400">
                       <div className="text-center">
                         <FaLeaf className="w-12 h-12 mx-auto mb-4 opacity-50" />
-                        <p className="text-xl">Analysis results will appear here</p>
+                        <p className="text-xl">Hasil analisis akan muncul di sini</p>
                       </div>
                     </div>
                   )}
@@ -289,8 +289,8 @@ export function PlantDiseaseDetection() {
                       <IoSparkles className="w-6 h-6 text-emerald-400 animate-pulse" />
                     </div>
                   </div>
-                  <h3 className="text-2xl font-bold mb-3">Ready for AI Analysis</h3>
-                  <p className="text-slate-400 text-lg">Upload a plant image to begin intelligent diagnosis</p>
+                  <h3 className="text-2xl font-bold mb-3">Siap untuk Analisis AI</h3>
+                  <p className="text-slate-400 text-lg">Unggah gambar tanaman untuk memulai diagnosis cerdas</p>
                 </div>
               </div>
             )}

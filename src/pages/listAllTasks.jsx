@@ -117,7 +117,7 @@ export default function ListAllTasks() {
 
   return (
     <MainLayout withNavigation={false}>
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-4 lg:p-6">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 mt-15 p-4 lg:p-6">
         <div className="container mx-auto">
           {/* Header */}
           <div className="mb-6 lg:mb-8">
@@ -160,7 +160,7 @@ export default function ListAllTasks() {
               </div>
             </div>
           ) : (
-            <div className="bg-slate-800/50 backdrop-blur-lg rounded-3xl shadow-2xl border border-slate-700/50 p-4 lg:p-8">
+            <>
               {/* Month Navigation */}
               <div className="flex items-center justify-between mb-6 lg:mb-8">
                 <div className="flex items-center gap-2 lg:gap-4">
@@ -217,6 +217,7 @@ export default function ListAllTasks() {
 
               {/* Calendar Grid */}
               <div className="grid grid-cols-7 gap-2 lg:gap-4">
+                {/* eslint-disable-next-line */}
                 {monthDays.map((dateObj, idx) => {
                   const dateStr = dateObj.format("YYYY-MM-DD");
                   const isToday = dateObj.isSame(today, "day");
@@ -257,7 +258,6 @@ export default function ListAllTasks() {
                           </span>
                           {isToday && (
                             <div className="px-1 lg:px-2 py-0.5 lg:py-1 bg-emerald-500/20 text-emerald-300 text-xs rounded-full border border-emerald-500/30">
-                              <span className="hidden sm:inline">Hari Ini</span>
                               <span className="sm:hidden">•</span>
                             </div>
                           )}
@@ -378,7 +378,7 @@ export default function ListAllTasks() {
                   </div>
                 </div>
               </div>
-            </div>
+            </>
           )}
         </div>
 

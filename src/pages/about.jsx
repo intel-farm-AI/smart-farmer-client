@@ -7,12 +7,12 @@ export default function About() {
     const navigate = useNavigate();
   return (
     <MainLayout>
-      <div className="relative min-h-[90vh] w-full text-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-8 px-2 flex flex-col items-center justify-center">
+      <div className="relative min-h-[90vh] w-full text-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 py-8 mt-15 px-2 flex flex-col items-center justify-center">
         {/* Tombol Kembali di pojok kiri atas */}
         <button
           type="button"
           onClick={() => navigate("/")}
-          className="absolute top-6 left-4 flex items-center gap-2 text-slate-300 hover:text-emerald-400 font-medium px-4 py-2.5 rounded-lg transition-all duration-300 shadow-lg bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 hover:border-emerald-500/50 hover:shadow-emerald-500/20"
+          className="absolute cursor-pointer top-6 left-4 flex items-center gap-2 text-slate-300 hover:text-emerald-400 font-medium px-4 py-2.5 rounded-lg transition-all duration-300 shadow-lg bg-slate-800/80 backdrop-blur-sm border border-slate-700/50 hover:border-emerald-500/50 hover:shadow-emerald-500/20"
           style={{zIndex: 10}}
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">

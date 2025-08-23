@@ -66,7 +66,7 @@ export function Banner() {
           <div className={`lg:w-1/2 transition-all duration-1000 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
 
             {/* Main Heading */}
-            <h1 className="text-6xl lg:text-7xl xl:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-green-200 to-emerald-400 leading-tight mb-8">
+            <h1 className="text-6xl lg:text-7xl xl:text-8xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-green-200 to-emerald-400 leading-tight mb-5">
               Smart<span className="text-green-400">farm</span>
               <br />
               <span className="text-4xl lg:text-5xl xl:text-6xl bg-gradient-to-r from-green-300 to-emerald-500 bg-clip-text">AI Revolution</span>
@@ -138,7 +138,7 @@ export function Banner() {
                     <FaEye className="w-4 h-4" />
                     <div>
                       <div className="text-sm font-bold">24/7</div>
-                      <div className="text-xs opacity-90">Monitoring</div>
+                      <div className="text-xs opacity-90">Diseases Detection</div>
                     </div>
                   </div>
 
