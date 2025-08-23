@@ -45,7 +45,7 @@ export function Header({ withNavigation }) {
   }, []);
 
   return (
-    <header className="bg-slate-900/95 backdrop-blur-xl border-b border-slate-800/50 text-white w-full sticky top-0 z-50 shadow-2xl">
+    <header className="bg-slate-900/95 backdrop-blur-xl border-b border-slate-800/50 text-white w-full fixed top-0 z-50 shadow-2xl">
       <div className="container mx-auto flex justify-between items-center px-6 h-16">
         {/* Logo */}
         <Link

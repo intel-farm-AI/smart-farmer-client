@@ -60,41 +60,40 @@ export default function Task() {
     <>
       <section className="w-full h-[500px] flex flex-col bg-slate-800/50 backdrop-blur-lg rounded-3xl shadow-2xl border border-slate-700/50 p-8">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-4">
-            <div>
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent">
-                Tugas Hari Ini
-              </h2>
-              <div className="flex items-center gap-2 text-slate-400 text-sm mt-1">
-                <FiCalendar className="w-4 h-4" />
-                <span>{formatTanggalIndo(todayStr)}</span>
-              </div>
+        <div className="flex flex-wrap items-center justify-between mb-8 gap-4">
+          <div>
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-emerald-300 bg-clip-text text-transparent">
+              Tugas Hari Ini
+            </h2>
+            <div className="flex items-center gap-2 text-slate-400 text-sm mt-1">
+              <FiCalendar className="w-4 h-4" />
+              <span>{formatTanggalIndo(todayStr)}</span>
             </div>
           </div>
           
-          {/* Progress Badge - dipindah ke header kanan */}
-          <div className="flex items-center gap-4">
+          {/* Progress Badge & Add Button */}
+          <div className="flex items-center gap-3 flex-wrap justify-end min-w-0 w-full sm:w-auto">
             {totalTasks > 0 && (
-              <div className="flex items-center gap-3 bg-slate-700/60 backdrop-blur-sm px-4 py-2 rounded-xl border border-slate-600/50">
-                <div className="flex items-center gap-2">
+              <div className="flex items-center gap-3 bg-slate-700/60 backdrop-blur-sm px-4 py-2 rounded-xl border border-slate-600/50 min-w-0 w-[140px] sm:w-[220px]">
+                <div className="flex items-center gap-2 flex-shrink-0">
                   <FiTrendingUp className="w-4 h-4 text-emerald-400" />
                   <span className="text-emerald-400 text-sm font-bold">
                     {completedTasks}/{totalTasks}
                   </span>
                 </div>
-                <div className="w-16 bg-slate-600/50 rounded-full h-1.5">
-                  <div 
-                    className="bg-gradient-to-r from-emerald-500 to-emerald-400 h-1.5 rounded-full transition-all duration-500 ease-out"
-                    style={{ width: `${totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0}%` }}
-                  ></div>
+                <div className="flex-1 min-w-0">
+                  <div className="w-full bg-slate-600/50 rounded-full h-1.5">
+                    <div 
+                      className="bg-gradient-to-r from-emerald-500 to-emerald-400 h-1.5 rounded-full transition-all duration-500 ease-out"
+                      style={{ width: `${totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0}%` }}
+                    ></div>
+                  </div>
                 </div>
               </div>
             )}
-            
             <button
               onClick={() => setIsModalOpen(true)}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white p-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 group"
+              className="bg-emerald-600 cursor-pointer hover:bg-emerald-700 text-white p-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 group"
               type="button"
               title="Tambah Tugas Baru"
             >

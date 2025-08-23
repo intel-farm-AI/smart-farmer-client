@@ -66,7 +66,7 @@ export function MainLayout({ withNavigation = true, withSidebar = false, childre
           {withSidebar && isMobile && (
             <button
               onClick={() => setSidebarOpen((v) => !v)}
-              className="fixed top-20 left-4 z-50 bg-slate-900 hover:bg-emerald-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+              className="fixed top-16 left-1 z-50 bg-slate-900 hover:bg-emerald-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
               aria-label="Toggle sidebar"
             >
               <svg

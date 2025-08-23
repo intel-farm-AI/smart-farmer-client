@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaCamera, FaCloudUploadAlt, FaLeaf, FaRobot, FaCheckCircle } from "react-icons/fa";
+import { IoSparkles } from "react-icons/io5";
 import { CameraModal } from "../../../components/modal/cameraModal";
 import ReactMarkdown from "react-markdown";
 
@@ -84,184 +85,216 @@ export function PlantDiseaseDetection() {
   }, [loading, result]);
 
   return (
-    <section className="min-h-screen">
-      <div className="container mx-auto mt-8 px-4 sm:px-6 md:px-10 py-8 bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl border border-green-100">
-        {/* Header Section dengan animasi */}
-        <div className="mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full mb-4 shadow-lg">
-            <FaLeaf className="w-8 h-8 text-white animate-pulse" />
+    <section className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-900 pt-25 p-6">
+      <div className="container mx-auto">
+        {/* Floating Background Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-40 right-20 w-24 h-24 bg-cyan-400/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
+          <div className="absolute bottom-20 left-1/4 w-20 h-20 bg-emerald-400/10 rounded-full blur-xl animate-pulse delay-2000"></div>
+        </div>
+
+          {/* Upload Section */}
+          <div className="min-h-[300px] mb-12">
+            <h2 className="text-4xl pb-2 sm:text-5xl font-bold bg-gradient-to-r from-emerald-400 via-emerald-300 to-teal-400 bg-clip-text text-transparent text-center lg:text-left">Plant Disease Detection</h2>
+            <p className="text-slate-300 mb-8 text-center lg:text-left">Use AI to diagnose plant diseases from images</p>
+            {!preview ? (
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
+                {/* Camera Button */}
+                <button
+                  onClick={handleOpenCamera}
+                  className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-700/50 to-slate-800/50 border border-slate-600/50 backdrop-blur-xl p-8 shadow-2xl hover:shadow-emerald-500/20 transition-all duration-500 transform hover:scale-105 hover:border-emerald-500/50"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  
+                  <div className="relative z-10 flex flex-col items-center text-center h-full justify-center">
+                    <div className="relative mb-6">
+                      <div className="w-24 h-24 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-xl">
+                        <FaCamera className="w-12 h-12 text-white" />
+                      </div>
+                      <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full flex items-center justify-center animate-bounce">
+                        <IoSparkles className="w-4 h-4 text-white" />
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-3">Live Camera</h3>
+                    <p className="text-slate-300 leading-relaxed">Capture plant images instantly with your device camera</p>
+                    <div className="mt-4 px-4 py-2 bg-emerald-900/30 border border-emerald-700/50 rounded-full">
+                      <span className="text-emerald-300 text-sm font-medium">Real-time Analysis</span>
+                    </div>
+                  </div>
+                </button>
+
+                {/* Upload Button */}
+                <label
+                  htmlFor="upload-input"
+                  className="group relative overflow-hidden cursor-pointer rounded-3xl bg-gradient-to-br from-slate-700/50 to-slate-800/50 border border-slate-600/50 backdrop-blur-xl p-8 shadow-2xl hover:shadow-cyan-500/20 transition-all duration-500 transform hover:scale-105 hover:border-cyan-500/50"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  
+                  <div className="relative z-10 flex flex-col items-center text-center h-full justify-center">
+                    <div className="relative mb-6">
+                      <div className="w-24 h-24 bg-gradient-to-r from-cyan-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 shadow-xl">
+                        <FaCloudUploadAlt className="w-12 h-12 text-white" />
+                      </div>
+                      <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full flex items-center justify-center animate-pulse">
+                        <IoSparkles className="w-4 h-4 text-white" />
+                      </div>
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-3">Upload Image</h3>
+                    <p className="text-slate-300 leading-relaxed">Select plant images from your device gallery</p>
+                    <div className="mt-4 px-4 py-2 bg-cyan-900/30 border border-cyan-700/50 rounded-full">
+                      <span className="text-cyan-300 text-sm font-medium">Batch Processing</span>
+                    </div>
+                  </div>
+                  <input
+                    id="upload-input"
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) => {
+                      handleImageChange(e);
+                      setMode("upload");
+                    }}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center h-full">
+                <div className="relative group mb-8">
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-cyan-500 rounded-3xl blur-lg opacity-30 group-hover:opacity-50 transition-opacity duration-300"></div>
+                  <img
+                    src={preview}
+                    alt="Plant Image Preview"
+                    className="relative max-w-lg w-full h-80 object-cover rounded-3xl border-4 border-slate-700/50 shadow-2xl group-hover:shadow-emerald-500/20 transition-all duration-500"
+                  />
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+                
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <button
+                    onClick={submitPrediction}
+                    disabled={loading}
+                    className="relative overflow-hidden bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700 text-white px-10 py-4 rounded-2xl font-bold text-lg shadow-2xl hover:shadow-emerald-500/30 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none group"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="flex items-center space-x-3 relative z-10">
+                      <FaRobot className={`w-5 h-5 ${loading ? 'animate-spin' : 'group-hover:animate-pulse'}`} />
+                      <span>{loading ? "Analyzing..." : "Start AI Analysis"}</span>
+                      {!loading && <IoSparkles className="w-4 h-4 animate-pulse" />}
+                    </div>
+                  </button>
+                  <button
+                    onClick={resetUpload}
+                    className="text-red-400 hover:text-red-300 px-8 py-4 rounded-2xl font-bold border-2 border-red-500/30 hover:border-red-400/50 hover:bg-red-900/20 transition-all duration-300 backdrop-blur-sm"
+                  >
+                    Remove Image
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-green-700 to-emerald-600 bg-clip-text text-transparent mb-3">
-            Deteksi Penyakit Pada Tanaman Anda
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl leading-relaxed">
-            Analisis kesehatan tanaman Anda dengan teknologi AI terdepan. Upload gambar atau gunakan kamera untuk diagnosis instant.
-          </p>
-        </div>
 
-        {/* Upload Section dengan tinggi tetap */}
-        <div className="min-h-[200px] mb-8">
-          {!preview ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full">
-              <button
-                onClick={handleOpenCamera}
-                className="group relative overflow-hidden rounded-2xl border-2 border-green-200 bg-gradient-to-br from-white to-green-50 p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:border-green-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-green-400/10 to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="relative z-10 flex flex-col items-center text-center">
-                  <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <FaCamera className="w-10 h-10 text-white" />
+          {/* Results Section */}
+          <div className="min-h-[300px]">
+            {(preview && (loading || result)) && (
+              <div className="rounded-3xl border border-slate-700/50 bg-slate-800/60 backdrop-blur-xl shadow-2xl h-full overflow-hidden">
+                {/* Header hasil */}
+                <div className="bg-gradient-to-r from-emerald-600 to-cyan-600 text-white p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-4">
+                      <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+                        <FaRobot className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-bold">AI Analysis Results</h3>
+                        <p className="text-emerald-100 text-sm">Advanced Machine Learning Diagnosis</p>
+                      </div>
+                    </div>
+                    {result && !loading && (
+                      <div className="flex items-center space-x-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl">
+                        <FaCheckCircle className="w-5 h-5 text-green-300" />
+                        <span className="font-bold">Complete</span>
+                      </div>
+                    )}
                   </div>
-                  <h3 className="text-xl font-semibold text-green-700 mb-2">Gunakan Kamera</h3>
-                  <p className="text-sm text-gray-600">Ambil foto langsung dari perangkat Anda</p>
                 </div>
-              </button>
 
-              <label
-                htmlFor="upload-input"
-                className="group relative overflow-hidden cursor-pointer rounded-2xl border-2 border-green-200 bg-gradient-to-br from-white to-green-50 p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 hover:border-green-300"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-green-400/10 to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="relative z-10 flex flex-col items-center text-center">
-                  <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <FaCloudUploadAlt className="w-10 h-10 text-white" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-green-700 mb-2">Upload Gambar</h3>
-                  <p className="text-sm text-gray-600">Pilih gambar daun dari galeri Anda</p>
-                </div>
-                <input
-                  id="upload-input"
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => {
-                    handleImageChange(e);
-                    setMode("upload");
-                  }}
-                  className="hidden"
-                />
-              </label>
-            </div>
-          ) : (
-            <div className="flex flex-col items-center justify-center h-full">
-              <div className="relative group">
-                <img
-                  src={preview}
-                  alt="Preview Daun"
-                  className="max-w-sm w-full h-64 object-cover rounded-2xl border-4 border-green-200 shadow-xl group-hover:shadow-2xl transition-all duration-300"
-                />
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-              <div className="flex gap-4 mt-6">
-                <button
-                  onClick={submitPrediction}
-                  disabled={loading}
-                  className="relative overflow-hidden bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white px-8 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-                >
-                  <div className="flex items-center space-x-2">
-                    <FaRobot className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
-                    <span>{loading ? "Menganalisis..." : "Analisis dengan AI"}</span>
-                  </div>
-                </button>
-                <button
-                  onClick={resetUpload}
-                  className="text-red-500 hover:text-red-700 px-6 py-3 rounded-xl font-medium border border-red-200 hover:border-red-300 hover:bg-red-50 transition-all duration-300"
-                >
-                  Hapus Gambar
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* Results Section dengan tinggi tetap */}
-        <div className="min-h-[200px]">
-          {(preview && (loading || result)) && (
-            <div className="rounded-2xl border-2 border-green-200 bg-gradient-to-br from-white to-green-50/30 shadow-xl backdrop-blur-sm h-full">
-              {/* Header hasil */}
-              <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white p-6 rounded-t-2xl">
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                    <FaRobot className="w-4 h-4" />
-                  </div>
-                  <h3 className="text-xl font-semibold">Hasil Analisis AI</h3>
-                  {result && !loading && (
-                    <div className="ml-auto flex items-center space-x-2 bg-white/20 px-3 py-1 rounded-full">
-                      <FaCheckCircle className="w-4 h-4" />
-                      <span className="text-sm font-medium">Selesai</span>
+                {/* Content area */}
+                <div className="p-8">
+                  {loading ? (
+                    <div className="space-y-6">
+                      <div className="flex items-center space-x-4">
+                        <div className="w-6 h-6 bg-emerald-400 rounded-full animate-bounce"></div>
+                        <div className="h-8 bg-slate-700/50 rounded-xl w-1/3 animate-pulse"></div>
+                      </div>
+                      <div className="space-y-4">
+                        <div className="h-6 bg-slate-700/30 rounded-xl w-3/4 animate-pulse"></div>
+                        <div className="h-6 bg-slate-700/30 rounded-xl w-2/4 animate-pulse delay-100"></div>
+                        <div className="h-6 bg-slate-700/30 rounded-xl w-5/6 animate-pulse delay-200"></div>
+                        <div className="h-6 bg-slate-700/30 rounded-xl w-1/2 animate-pulse delay-300"></div>
+                      </div>
+                      <div className="mt-8 space-y-3">
+                        <div className="h-6 bg-slate-700/30 rounded-xl w-1/3 animate-pulse delay-400"></div>
+                        <div className="h-4 bg-slate-700/20 rounded-lg w-2/3 animate-pulse delay-500"></div>
+                        <div className="h-4 bg-slate-700/20 rounded-lg w-1/2 animate-pulse delay-600"></div>
+                        <div className="h-4 bg-slate-700/20 rounded-lg w-3/4 animate-pulse delay-700"></div>
+                      </div>
+                    </div>
+                  ) : result ? (
+                    <div className={`transition-all duration-1000 transform ${showFade ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                      <ReactMarkdown
+                        components={{
+                          h1: (props) => <h1 className="text-4xl font-bold bg-gradient-to-r from-emerald-300 to-cyan-300 bg-clip-text text-transparent mt-8 mb-6 border-b-2 border-emerald-700/50 pb-4" {...props} />,
+                          h2: (props) => <h2 className="text-3xl font-bold text-emerald-200 mt-6 mb-4" {...props} />,
+                          h3: (props) => <h3 className="text-2xl font-semibold text-emerald-300 mt-5 mb-3" {...props} />,
+                          ul: (props) => <ul className="list-none space-y-3 ml-0" {...props} />,
+                          ol: (props) => <ol className="list-decimal list-inside space-y-3 ml-6" {...props} />,
+                          li: (props) => (
+                            <li className="flex items-start space-x-4 p-4 bg-slate-700/30 rounded-2xl border border-slate-600/30 backdrop-blur-sm hover:bg-slate-700/40 transition-colors duration-300" {...props}>
+                              <div className="w-3 h-3 bg-gradient-to-r from-emerald-400 to-cyan-400 rounded-full mt-2 flex-shrink-0 shadow-lg"></div>
+                              <span className="flex-1 text-slate-200">{props.children}</span>
+                            </li>
+                          ),
+                          p: (props) => <p className="mb-6 leading-relaxed text-slate-300 text-lg" {...props} />,
+                          strong: (props) => <strong className="font-bold bg-gradient-to-r from-emerald-300 to-cyan-300 bg-clip-text text-transparent text-xl" {...props} />,
+                          code: (props) => <code className="bg-slate-700/50 text-emerald-300 px-3 py-2 rounded-lg text-sm font-mono border border-slate-600/30" {...props} />,
+                          pre: (props) => <pre className="bg-slate-900/50 p-6 rounded-2xl mb-6 overflow-x-auto border border-slate-700/50 backdrop-blur-sm" {...props} />,
+                          a: (props) => <a className="text-cyan-400 hover:text-cyan-300 underline font-bold transition-colors duration-200" target="_blank" rel="noopener noreferrer" {...props} />,
+                        }}
+                      >
+                        {result}
+                      </ReactMarkdown>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center h-40 text-slate-400">
+                      <div className="text-center">
+                        <FaLeaf className="w-12 h-12 mx-auto mb-4 opacity-50" />
+                        <p className="text-xl">Analysis results will appear here</p>
+                      </div>
                     </div>
                   )}
                 </div>
               </div>
-
-              {/* Content area */}
-              <div className="p-6 h-full">
-                {loading ? (
-                  <div className="space-y-4 animate-pulse">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-4 h-4 bg-green-300 rounded-full animate-bounce"></div>
-                      <div className="h-6 bg-green-200 rounded-lg w-1/3"></div>
-                    </div>
-                    <div className="space-y-3">
-                      <div className="h-4 bg-green-100 rounded w-3/4"></div>
-                      <div className="h-4 bg-green-100 rounded w-2/4"></div>
-                      <div className="h-4 bg-green-100 rounded w-5/6"></div>
-                      <div className="h-4 bg-green-100 rounded w-1/2"></div>
-                    </div>
-                    <div className="mt-6 space-y-2">
-                      <div className="h-4 bg-green-100 rounded w-1/3"></div>
-                      <div className="h-3 bg-green-100 rounded w-2/3"></div>
-                      <div className="h-3 bg-green-100 rounded w-1/2"></div>
-                      <div className="h-3 bg-green-100 rounded w-3/4"></div>
+            )}
+            
+            {/* Placeholder ketika belum ada preview */}
+            {!preview && (
+              <div className="rounded-3xl border-2 border-dashed border-slate-600/50 bg-slate-700/20 backdrop-blur-sm h-full flex items-center justify-center">
+                <div className="text-center text-slate-300">
+                  <div className="relative inline-block mb-6">
+                    <FaLeaf className="w-16 h-16 mx-auto opacity-60" />
+                    <div className="absolute -top-2 -right-2">
+                      <IoSparkles className="w-6 h-6 text-emerald-400 animate-pulse" />
                     </div>
                   </div>
-                ) : result ? (
-                  <div className={`transition-all duration-700 transform ${showFade ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                    <ReactMarkdown
-                      components={{
-                        h1: (props) => <h1 className="text-3xl font-bold text-green-800 mt-6 mb-4 border-b-2 border-green-200 pb-2" {...props} />,
-                        h2: (props) => <h2 className="text-2xl font-bold text-green-700 mt-5 mb-3" {...props} />,
-                        h3: (props) => <h3 className="text-xl font-semibold text-green-700 mt-4 mb-2" {...props} />,
-                        ul: (props) => <ul className="list-none space-y-2 ml-0" {...props} />,
-                        ol: (props) => <ol className="list-decimal list-inside space-y-2 ml-4" {...props} />,
-                        li: (props) => (
-                          <li className="flex items-start space-x-3 p-3 bg-green-50 rounded-lg border-l-4 border-green-400" {...props}>
-                            <span className="w-2 h-2 bg-green-500 rounded-full mt-2 flex-shrink-0"></span>
-                            <span className="flex-1">{props.children}</span>
-                          </li>
-                        ),
-                        p: (props) => <p className="mb-4 leading-relaxed text-gray-700" {...props} />,
-                        strong: (props) => <strong className="font-bold text-green-800 text-lg" {...props} />,
-                        code: (props) => <code className="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-mono" {...props} />,
-                        pre: (props) => <pre className="bg-gray-100 p-4 rounded-lg mb-4 overflow-x-auto border" {...props} />,
-                        a: (props) => <a className="text-blue-600 hover:text-blue-800 underline font-medium" target="_blank" rel="noopener noreferrer" {...props} />,
-                      }}
-                    >
-                      {result}
-                    </ReactMarkdown>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center h-32 text-gray-400">
-                    <div className="text-center">
-                      <FaLeaf className="w-8 h-8 mx-auto mb-2 opacity-50" />
-                      <p>Hasil analisis akan muncul di sini</p>
-                    </div>
-                  </div>
-                )}
+                  <h3 className="text-2xl font-bold mb-3">Ready for AI Analysis</h3>
+                  <p className="text-slate-400 text-lg">Upload a plant image to begin intelligent diagnosis</p>
+                </div>
               </div>
-            </div>
-          )}
-          
-          {/* Placeholder ketika belum ada preview */}
-          {!preview && (
-            <div className="rounded-2xl border-2 border-dashed border-green-300 bg-green-50/50 h-full flex items-center justify-center">
-              <div className="text-center text-green-600">
-                <FaLeaf className="w-12 h-12 mx-auto mb-4 opacity-60" />
-                <h3 className="text-xl font-semibold mb-2">Siap untuk Analisis</h3>
-                <p className="text-gray-600">Upload gambar daun untuk memulai diagnosis AI</p>
-              </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
       </div>
 
       {showCameraModal && (

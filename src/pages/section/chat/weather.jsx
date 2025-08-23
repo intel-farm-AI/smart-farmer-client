@@ -13,6 +13,7 @@ import {
 } from "../../../lib/utils/location";
 
 export function Weather() {
+  // eslint-disable-next-line
   const { location, locationChecked } = useContext(LocationContext);
   const auth = getAuth();
   const user = auth.currentUser;
@@ -188,12 +189,12 @@ export function Weather() {
   return (
     <>
         {/* Header Section */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-10 pt-20 gap-8">
-          <div className="space-y-3">
-            <h2 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-emerald-400 via-emerald-300 to-teal-400 bg-clip-text text-transparent text-center lg:text-left">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-10 gap-8">
+          <div className="space-y-">
+            <h2 className="text-4xl pb-2 sm:text-5xl font-bold bg-gradient-to-r from-emerald-400 via-emerald-300 to-teal-400 bg-clip-text text-transparent text-center lg:text-left">
               Selamat Datang{user && user.displayName ? ` ${user.displayName}` : ''}!
             </h2>
-            <div className="flex items-center justify-center lg:justify-start gap-3 text-slate-300">
+            <div className="flex items-center justify-center lg:justify-start gap-2 text-slate-300">
               <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
@@ -229,14 +230,14 @@ export function Weather() {
           )}
         </div>
 
-        <p className="text-slate-300 mb-10 text-center lg:text-left text-lg sm:text-xl">
+        <p className="text-slate-300 mb-5 text-center lg:text-left text-lg sm:text-xl">
           Berikut prakiraan cuaca untuk 7 hari ke depan
         </p>
 
-        <div className="h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent mb-10" />
+        <div className="h-px bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent mb-5" />
 
         {/* Location Controls */}
-        <div className="mb-10 space-y-8">
+        <div className="space-y-2">
           <div className="flex flex-col md:flex-row gap-6 items-start md:items-center">
             <label className="font-semibold text-slate-200 flex items-center gap-3 text-lg">
               <svg className="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -248,7 +249,7 @@ export function Weather() {
             <select
               value={mode}
               onChange={(e) => setMode(e.target.value)}
-              className="border border-slate-600 rounded-xl px-5 py-4 bg-slate-700/70 text-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-sm"
+              className="border border-slate-600 rounded-xl px-4 py-4 bg-slate-700/70 text-slate-200 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-300 shadow-lg hover:shadow-xl backdrop-blur-sm"
             >
               <option value="otomatis">Lokasi saat ini</option>
               <option value="manual">Pilih Manual</option>
