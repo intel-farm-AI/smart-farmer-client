@@ -128,7 +128,7 @@ export function PlantDiseaseDetection() {
                 {/* Upload Button */}
                 <label
                   htmlFor="upload-input"
-                  className="group relative overflow-hidden cursor-pointer rounded-3xl bg-gradient-to-br from-slate-700/50 to-slate-800/50 border border-slate-600/50 backdrop-blur-xl p-8 shadow-2xl hover:shadow-cyan-500/20 transition-all duration-500 transform hover:scale-105 hover:border-cyan-500/50"
+                  className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-700/50 to-slate-800/50 border border-slate-600/50 backdrop-blur-xl p-8 shadow-2xl hover:shadow-cyan-500/20 transition-all duration-500 transform hover:scale-105 hover:border-cyan-500/50"
                 >
                   <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/10 to-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>

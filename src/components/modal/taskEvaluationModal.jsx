@@ -170,7 +170,7 @@ export default function TaskEvaluationModal({ task, onClose, onTaskComplete }) {
           {/* Close Button */}
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 cursor-pointer text-slate-400 hover:text-red-400 focus:text-red-400 focus:outline-none focus:ring-2 focus:ring-red-400/50 text-2xl font-bold transition-colors duration-200 z-10 rounded"
+            className="absolute top-4 right-4 text-slate-400 hover:text-red-400 focus:text-red-400 focus:outline-none focus:ring-2 focus:ring-red-400/50 text-2xl font-bold transition-colors duration-200 z-10 rounded"
             aria-label="Tutup modal"
           >
             <FiX className="w-5 h-5" />

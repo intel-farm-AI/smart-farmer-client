@@ -97,7 +97,7 @@ export function Banner() {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-6">
               <a href="/login">
-                <button className="group cursor-pointer relative px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-green-500/25 transform hover:scale-105 transition-all duration-300 overflow-hidden">
+                <button className="group relative px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold text-lg rounded-2xl shadow-2xl hover:shadow-green-500/25 transform hover:scale-105 transition-all duration-300 overflow-hidden">
                   <span className="relative z-10 flex items-center">
                     Mulai Gratis Sekarang
                     <FaChevronRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />

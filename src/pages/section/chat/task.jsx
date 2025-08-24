@@ -93,7 +93,7 @@ export default function Task() {
             )}
             <button
               onClick={() => setIsModalOpen(true)}
-              className="bg-emerald-600 cursor-pointer hover:bg-emerald-700 text-white p-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 group"
+              className="bg-emerald-600 hover:bg-emerald-700 text-white p-3 rounded-xl font-medium shadow-lg hover:shadow-xl transition-all duration-300 group"
               type="button"
               title="Tambah Tugas Baru"
             >

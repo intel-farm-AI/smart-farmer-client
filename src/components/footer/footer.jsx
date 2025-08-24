@@ -37,12 +37,14 @@ export function Footer() {
                 <span className="text-white font-bold text-sm">Agrify Team</span>
               </div>
 
-              {/* Made with love */}
-              <div className="flex items-center gap-1 text-slate-400 text-sm">
-                <span>Made with</span>
-                <FiHeart className="w-4 h-4 text-red-400 animate-pulse" />
-                <span>in Indonesia</span>
-              </div>
+              {/* Kirim Laporan */}
+              <Link
+                to="/report"
+                className="flex items-center gap-2 text-emerald-400 hover:text-emerald-300 text-sm font-semibold border border-emerald-500/30 rounded-full px-4 py-2 transition-colors duration-200"
+              >
+                <FiMail className="w-4 h-4" />
+                Kirim Laporan
+              </Link>
             </div>
           </div>
         </div>

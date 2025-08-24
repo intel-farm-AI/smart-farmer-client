@@ -52,7 +52,7 @@ export default function AgriculturalLand() {
           </div>
 
           <button
-            className="bg-gradient-to-r cursor-pointer from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 group"
+            className="bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 group"
             onClick={() => setShowModal(true)}
           >
             <FiPlus className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
@@ -88,7 +88,7 @@ export default function AgriculturalLand() {
                 <div
                   key={land.id}
                   className="group relative bg-slate-700/40 hover:bg-slate-700/60 border border-slate-600/50 hover:border-emerald-500/50 
-                    rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/10 cursor-pointer"
+                    rounded-2xl p-6 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/10"
                 >
                   <div className="flex items-start gap-5">
                     {/* Icon */}

@@ -17,6 +17,7 @@ import ListAllTasks from './pages/listAllTasks';
 import About from './pages/about';
 import PredictionPage from './pages/prediction';
 import MarketPrice from './pages/market';
+import ReportPage from './pages/report';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/report" element={<ReportPage />} />
           <Route path="/dashboard" element={
             <RequireAuth>
               <ChatWithAI />
