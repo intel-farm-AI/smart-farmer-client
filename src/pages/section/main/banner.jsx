@@ -1,9 +1,9 @@
 // import { Link } from "react-router-dom"; // Commented out for demo
 import { useState, useEffect } from "react";
-import { 
-  FaChevronRight, 
-  FaStar, 
-  FaShieldAlt, 
+import {
+  FaChevronRight,
+  FaStar,
+  FaShieldAlt,
   FaBolt,
   FaLeaf,
   FaSeedling,
@@ -11,10 +11,10 @@ import {
   FaChartLine,
   FaEye
 } from "react-icons/fa";
-import { 
-  HiSparkles, 
+import {
+  HiSparkles,
 } from "react-icons/hi";
-import { 
+import {
   IoSparkles,
   IoFlash,
 } from "react-icons/io5";
@@ -47,7 +47,7 @@ export function Banner() {
 
       {/* Grid Pattern Overlay */}
       <div className="absolute inset-0 opacity-10">
-        <div 
+        <div
           className="w-full h-full"
           style={{
             backgroundImage: `
@@ -61,7 +61,7 @@ export function Banner() {
 
       <div className="container mx-auto px-6 py-20 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-16 min-h-[80vh]">
-          
+
           {/* Content Section */}
           <div className={`lg:w-1/2 transition-all duration-1000 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
 
@@ -74,7 +74,7 @@ export function Banner() {
 
             {/* Subtitle */}
             <p className="text-xl lg:text-2xl text-gray-300 mb-12 leading-relaxed max-w-2xl">
-              Transformasi digital untuk <span className="text-green-400 font-semibold">pertanian masa depan</span>. 
+              Transformasi digital untuk <span className="text-green-400 font-semibold">pertanian masa depan</span>.
               Deteksi penyakit real-time, optimalisasi hasil panen, dan analisis prediktif yang akurat.
             </p>
 
@@ -111,20 +111,20 @@ export function Banner() {
           {/* Image Section */}
           <div className={`lg:w-1/2 transition-all duration-1000 delay-300 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'}`}>
             <div className="relative" style={parallaxStyle}>
-              
+
               {/* Main Image Container */}
               <div className="relative group">
                 <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-emerald-500 rounded-3xl rotate-6 group-hover:rotate-3 transition-transform duration-500 opacity-20"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-500 rounded-3xl -rotate-6 group-hover:-rotate-3 transition-transform duration-500 opacity-20"></div>
-                
+
                 <div className="relative bg-white/10 backdrop-blur-lg rounded-3xl p-2 shadow-2xl border border-white/20 group-hover:shadow-green-500/20 transition-all duration-500">
-                  <img 
-                    src="/src/assets/images/homepage/homepage.jpg" 
-                    alt="SmartFarm AI Dashboard" 
-                    draggable="false" 
+                  <img
+                    src="/src/assets/images/homepage/homepage.jpg"
+                    alt="SmartFarm AI Dashboard"
+                    draggable="false"
                     className="w-full h-auto rounded-2xl shadow-xl group-hover:scale-105 transition-transform duration-500 select-none"
                   />
-                  
+
                   {/* Floating Stats Cards */}
                   <div className="absolute -top-4 -left-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-xl shadow-lg flex items-center gap-2">
                     <FaChartLine className="w-4 h-4" />
@@ -133,7 +133,7 @@ export function Banner() {
                       <div className="text-xs opacity-90">Produktivitas</div>
                     </div>
                   </div>
-                  
+
                   <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-cyan-600 text-white px-4 py-2 rounded-xl shadow-lg flex items-center gap-2">
                     <FaEye className="w-4 h-4" />
                     <div>

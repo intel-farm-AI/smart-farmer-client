@@ -87,15 +87,15 @@ export default function ListAllTasks() {
     const endOfMonth = monthDate.endOf("month");
     const startOfCalendar = startOfMonth.startOf("week");
     const endOfCalendar = endOfMonth.endOf("week");
-    
+
     const days = [];
     let currentDay = startOfCalendar;
-    
+
     while (currentDay.isBefore(endOfCalendar) || currentDay.isSame(endOfCalendar, "day")) {
       days.push(currentDay);
       currentDay = currentDay.add(1, "day");
     }
-    
+
     return days;
   };
 
@@ -171,7 +171,7 @@ export default function ListAllTasks() {
                   >
                     <FiChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-300" />
                   </button>
-                  
+
                   <div className="text-center">
                     <h2 className="text-xl lg:text-2xl font-bold text-slate-200 capitalize">
                       {currentMonth.format("MMMM YYYY")}
@@ -180,7 +180,7 @@ export default function ListAllTasks() {
                       {monthDays.length} hari dalam kalender
                     </p>
                   </div>
-                  
+
                   <button
                     onClick={goToNextMonth}
                     className="p-2 lg:p-3 rounded-xl bg-slate-700/50 border border-slate-600/50 text-slate-300 hover:text-emerald-400 hover:border-emerald-500/50 transition-all duration-300 group"
@@ -234,26 +234,25 @@ export default function ListAllTasks() {
                         rounded-xl lg:rounded-2xl border p-2 lg:p-4 min-h-[80px] lg:min-h-[120px] flex flex-col transition-all duration-300 hover:scale-[1.02] hover:shadow-lg
                         ${!isCurrentMonth
                           ? "bg-slate-800/20 border-slate-700/20 opacity-40"
-                          : isToday 
-                          ? "bg-gradient-to-br from-emerald-900/40 to-emerald-800/30 border-emerald-500/50 shadow-emerald-500/20 shadow-lg" 
-                          : isPast
-                          ? "bg-slate-700/30 border-slate-600/30"
-                          : "bg-slate-700/40 border-slate-600/50 hover:border-emerald-500/30"
+                          : isToday
+                            ? "bg-gradient-to-br from-emerald-900/40 to-emerald-800/30 border-emerald-500/50 shadow-emerald-500/20 shadow-lg"
+                            : isPast
+                              ? "bg-slate-700/30 border-slate-600/30"
+                              : "bg-slate-700/40 border-slate-600/50 hover:border-emerald-500/30"
                         }
                       `}
                     >
                       {/* Date Header */}
                       <div className="flex items-center justify-between mb-2 lg:mb-3">
                         <div className="flex items-center gap-1 lg:gap-2">
-                          <span className={`text-sm lg:text-lg font-bold ${
-                            !isCurrentMonth
+                          <span className={`text-sm lg:text-lg font-bold ${!isCurrentMonth
                               ? "text-slate-500"
-                              : isToday 
-                              ? "text-emerald-300" 
-                              : isPast 
-                              ? "text-slate-400" 
-                              : "text-slate-300"
-                          }`}>
+                              : isToday
+                                ? "text-emerald-300"
+                                : isPast
+                                  ? "text-slate-400"
+                                  : "text-slate-300"
+                            }`}>
                             {dateObj.format("D")}
                           </span>
                           {isToday && (
@@ -262,17 +261,16 @@ export default function ListAllTasks() {
                             </div>
                           )}
                         </div>
-                        
+
                         {/* Task Counter */}
                         {totalTasks > 0 && (
                           <div className="flex items-center gap-1">
-                            <div className={`w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full ${
-                              completedTasks === totalTasks 
-                                ? "bg-emerald-400" 
-                                : completedTasks > 0 
-                                ? "bg-yellow-400" 
-                                : "bg-slate-400"
-                            }`}></div>
+                            <div className={`w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full ${completedTasks === totalTasks
+                                ? "bg-emerald-400"
+                                : completedTasks > 0
+                                  ? "bg-yellow-400"
+                                  : "bg-slate-400"
+                              }`}></div>
                             <span className="text-xs text-slate-400">
                               {completedTasks}/{totalTasks}
                             </span>
@@ -304,24 +302,22 @@ export default function ListAllTasks() {
                                 }}
                               >
                                 <span
-                                  className={`text-xs flex-1 truncate ${
-                                    task.done
+                                  className={`text-xs flex-1 truncate ${task.done
                                       ? "line-through text-slate-400"
                                       : "text-slate-200 group-hover:text-emerald-300"
-                                  }`}
+                                    }`}
                                   title={task.title}
                                 >
                                   {task.title}
                                 </span>
-                                
+
                                 <div className="flex items-center gap-0.5 lg:gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
                                   <button
                                     onClick={() => toggleDone(task.id, task.done)}
-                                    className={`p-0.5 lg:p-1 rounded-full transition-all duration-200 hover:scale-110 ${
-                                      task.done 
-                                        ? "text-emerald-400 hover:bg-emerald-500/20" 
+                                    className={`p-0.5 lg:p-1 rounded-full transition-all duration-200 hover:scale-110 ${task.done
+                                        ? "text-emerald-400 hover:bg-emerald-500/20"
                                         : "text-slate-400 hover:text-emerald-400 hover:bg-emerald-500/20"
-                                    }`}
+                                      }`}
                                     type="button"
                                     title={task.done ? "Tugas selesai" : "Tandai selesai"}
                                   >
@@ -361,7 +357,7 @@ export default function ListAllTasks() {
                       <span>Belum ada tugas yang tercatat</span>
                     )}
                   </div>
-                  
+
                   <div className="flex items-center gap-2 text-xs lg:text-sm">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>

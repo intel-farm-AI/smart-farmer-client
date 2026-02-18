@@ -15,12 +15,12 @@ const marketData = [
     region: "Jawa Barat",
     quality: "Kualitas Premium"
   },
-  
+
   {
     id: 2,
     name: "Jagung",
     price: 3800,
-    unit: "kg", 
+    unit: "kg",
     change: -1.2,
     trend: "down",
     lastUpdate: "1 jam lalu",
@@ -89,11 +89,11 @@ export default function MarketPrice() {
   const [selectedRegion, setSelectedRegion] = useState("Semua");
   const [sortBy, setSortBy] = useState("name");
   const [filteredData, setFilteredData] = useState(marketData);
-  
+
   const regions = ["Semua", "Jawa Barat", "Jawa Tengah", "Jawa Timur", "Lampung"];
 
   useEffect(() => {
-    let filtered = marketData.filter(item => 
+    let filtered = marketData.filter(item =>
       item.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
       (selectedRegion === "Semua" || item.region === selectedRegion)
     );
@@ -110,7 +110,7 @@ export default function MarketPrice() {
   }, [searchTerm, selectedRegion, sortBy]);
 
   const getTrendIcon = (trend) => {
-    switch(trend) {
+    switch (trend) {
       case "up": return <FiTrendingUp className="w-5 h-5 text-emerald-400" />;
       case "down": return <FiTrendingDown className="w-5 h-5 text-red-400" />;
       default: return <FiMinus className="w-5 h-5 text-slate-400" />;
@@ -149,11 +149,11 @@ export default function MarketPrice() {
               </div>
               <div className="flex items-center text-sm text-slate-400 bg-slate-800/50 backdrop-blur-sm rounded-lg px-4 py-3 border border-slate-700/50">
                 <FiCalendar className="w-4 h-4 mr-2 text-emerald-400" />
-                Terakhir diperbarui: {new Date().toLocaleDateString('id-ID', { 
-                  weekday: 'long', 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric' 
+                Terakhir diperbarui: {new Date().toLocaleDateString('id-ID', {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
                 })}
               </div>
             </div>
@@ -173,9 +173,9 @@ export default function MarketPrice() {
                     />
                   </div>
                 </div>
-                
+
                 <div className="md:w-48">
-                  <select 
+                  <select
                     className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600/50 rounded-xl text-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200"
                     value={selectedRegion}
                     onChange={(e) => setSelectedRegion(e.target.value)}
@@ -185,9 +185,9 @@ export default function MarketPrice() {
                     ))}
                   </select>
                 </div>
-                
+
                 <div className="md:w-48">
-                  <select 
+                  <select
                     className="w-full px-4 py-3 bg-slate-700/50 border border-slate-600/50 rounded-xl text-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200"
                     value={sortBy}
                     onChange={(e) => setSortBy(e.target.value)}
@@ -207,7 +207,7 @@ export default function MarketPrice() {
                   <div className="p-6 relative">
                     {/* Subtle glow effect */}
                     <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    
+
                     <div className="relative z-10">
                       <div className="flex justify-between items-start mb-4">
                         <div>
@@ -221,7 +221,7 @@ export default function MarketPrice() {
                           {getTrendIcon(item.trend)}
                         </div>
                       </div>
-                      
+
                       <div className="mb-4">
                         <div className="text-3xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent mb-2">
                           {formatCurrency(item.price)}
@@ -231,7 +231,7 @@ export default function MarketPrice() {
                           {item.change > 0 ? '+' : ''}{item.change}%
                         </div>
                       </div>
-                      
+
                       <div className="space-y-3">
                         <div className="flex justify-between items-center p-3 bg-slate-700/30 rounded-lg border border-slate-600/30">
                           <span className="text-slate-400 text-sm">Kualitas:</span>
@@ -266,7 +266,7 @@ export default function MarketPrice() {
                   Ringkasan Pasar
                 </h2>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div className="bg-gradient-to-br from-emerald-900/50 to-emerald-800/30 rounded-2xl p-6 border border-emerald-700/50 backdrop-blur-sm">
                   <div className="flex items-center justify-between">
@@ -281,7 +281,7 @@ export default function MarketPrice() {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="bg-gradient-to-br from-red-900/50 to-red-800/30 rounded-2xl p-6 border border-red-700/50 backdrop-blur-sm">
                   <div className="flex items-center justify-between">
                     <div>
@@ -295,7 +295,7 @@ export default function MarketPrice() {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="bg-gradient-to-br from-slate-700/50 to-slate-600/30 rounded-2xl p-6 border border-slate-600/50 backdrop-blur-sm">
                   <div className="flex items-center justify-between">
                     <div>

@@ -5,7 +5,7 @@ import { Describe } from "./section/main/describe";
 import { Feature } from "./section/main/feature";
 import { HowItWorks } from "./section/main/howItWorks";
 import Join from "./section/main/join";
-import { Testimoni } from "./section/main/Testimoni";
+import { Testimoni } from "./section/main/testimoni";
 
 export function Home() {
   return (

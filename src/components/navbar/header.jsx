@@ -4,6 +4,8 @@ import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { app } from "../../lib/services/firebase";
 import { FiLogOut, FiUser, FiSettings } from "react-icons/fi";
 
+import { GoogleTranslate } from "./Translator";
+
 export function Header({ withNavigation }) {
   const [user, setUser] = useState(null);
   const [showDropdown, setShowDropdown] = useState(false);
@@ -68,82 +70,86 @@ export function Header({ withNavigation }) {
           </span>
         </Link>
 
-        {/* Navigation + User */}
-        {user ? (
-          <div className="flex items-center gap-6 relative" ref={dropdownRef}>
-            {withNavigation && (
-              <Link
-                to="/dashboard"
-                className="hidden sm:inline-block relative text-sm md:text-base font-semibold text-slate-300 hover:text-emerald-300 transition-all duration-300 group"
+        {/* Navigation + User + Translator */}
+        <div className="flex items-center gap-4">
+          <GoogleTranslate />
+
+          {user ? (
+            <div className="flex items-center gap-6 relative" ref={dropdownRef}>
+              {withNavigation && (
+                <Link
+                  to="/dashboard"
+                  className="hidden sm:inline-block relative text-sm md:text-base font-semibold text-slate-300 hover:text-emerald-300 transition-all duration-300 group"
+                >
+                  Dashboard
+                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-emerald-400 to-emerald-300 group-hover:w-full transition-all duration-300"></span>
+                </Link>
+              )}
+
+              {/* Avatar button */}
+              <button
+                onClick={() => setShowDropdown((v) => !v)}
+                className="relative rounded-full focus:outline-none ring-2 ring-transparent hover:ring-emerald-400/60 focus:ring-emerald-400/60 transition-all duration-300 group"
               >
-                Dashboard
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-emerald-400 to-emerald-300 group-hover:w-full transition-all duration-300"></span>
-              </Link>
-            )}
+                <div className="relative">
+                  <img
+                    src={avatarUrl}
+                    alt={displayNameShort}
+                    className="w-10 h-10 rounded-full object-cover border-2 border-slate-700 group-hover:border-emerald-400/60 transition-all duration-300"
+                  />
+                  <div className="absolute inset-0 rounded-full bg-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+              </button>
 
-            {/* Avatar button */}
-            <button
-              onClick={() => setShowDropdown((v) => !v)}
-              className="relative rounded-full focus:outline-none ring-2 ring-transparent hover:ring-emerald-400/60 focus:ring-emerald-400/60 transition-all duration-300 group"
-            >
-              <div className="relative">
-                <img
-                  src={avatarUrl}
-                  alt={displayNameShort}
-                  className="w-10 h-10 rounded-full object-cover border-2 border-slate-700 group-hover:border-emerald-400/60 transition-all duration-300"
-                />
-                <div className="absolute inset-0 rounded-full bg-emerald-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              </div>
-            </button>
+              {/* Dropdown */}
+              {showDropdown && (
+                <div className="absolute right-0 mt-55 w-52 bg-slate-800/95 backdrop-blur-xl text-white rounded-2xl shadow-2xl border border-slate-700/50 overflow-hidden animate-slideIn">
+                  <div className="px-5 py-4 border-b border-slate-700/50 bg-gradient-to-r from-slate-800 to-slate-700/50">
+                    <div className="flex items-center gap-3">
+                      <img
+                        src={avatarUrl}
+                        alt={displayNameShort}
+                        className="w-10 h-10 rounded-full border-2 border-emerald-400/30"
+                      />
+                      <div>
+                        <p className="text-sm font-bold text-white">{displayNameShort}</p>
+                        <p className="text-xs text-slate-400 truncate max-w-[8rem]">
+                          {user.email}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-            {/* Dropdown */}
-            {showDropdown && (
-              <div className="absolute right-0 mt-55 w-52 bg-slate-800/95 backdrop-blur-xl text-white rounded-2xl shadow-2xl border border-slate-700/50 overflow-hidden animate-slideIn">
-                <div className="px-5 py-4 border-b border-slate-700/50 bg-gradient-to-r from-slate-800 to-slate-700/50">
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={avatarUrl}
-                      alt={displayNameShort}
-                      className="w-10 h-10 rounded-full border-2 border-emerald-400/30"
-                    />
-                    <div>
-                      <p className="text-sm font-bold text-white">{displayNameShort}</p>
-                      <p className="text-xs text-slate-400 truncate max-w-[8rem]">
-                        {user.email}
-                      </p>
+                  <div className="py-2">
+                    <div className="border-t border-slate-700/50 mt-2 pt-2">
+                      <button
+                        className="flex items-center gap-3 w-full px-5 py-3 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200 group"
+                        onClick={async () => {
+                          setShowDropdown(false);
+                          const auth = getAuth(app);
+                          await signOut(auth);
+                        }}
+                      >
+                        <FiLogOut className="text-base group-hover:text-red-300 transition-colors duration-200" />
+                        Logout
+                      </button>
                     </div>
                   </div>
                 </div>
-                
-                <div className="py-2">                 
-                  <div className="border-t border-slate-700/50 mt-2 pt-2">
-                    <button
-                      className="flex items-center gap-3 w-full px-5 py-3 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 transition-all duration-200 group"
-                      onClick={async () => {
-                        setShowDropdown(false);
-                        const auth = getAuth(app);
-                        await signOut(auth);
-                      }}
-                    >
-                      <FiLogOut className="text-base group-hover:text-red-300 transition-colors duration-200" />
-                      Logout
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-        ) : (
-          withNavigation && (
-            <Link
-              to="/login"
-              className="relative bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white px-6 py-2.5 rounded-xl font-bold shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 group overflow-hidden"
-            >
-              <span className="relative z-10">Mulai Sekarang</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-emerald-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </Link>
-          )
-        )}
+              )}
+            </div>
+          ) : (
+            withNavigation && (
+              <Link
+                to="/login"
+                className="relative bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white px-6 py-2.5 rounded-xl font-bold shadow-lg hover:shadow-emerald-500/25 transition-all duration-300 group overflow-hidden"
+              >
+                <span className="relative z-10">Mulai Sekarang</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-emerald-300 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              </Link>
+            )
+          )}
+        </div>
       </div>
 
       {/* Enhanced Animations */}

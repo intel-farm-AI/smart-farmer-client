@@ -26,15 +26,15 @@ const capitalizeWords = (str) =>
     .toLowerCase()
     .replace(/\b\w/g, (char) => char.toUpperCase());
 
-const FormField = ({ 
-  label, 
-  children, 
-  required = false, 
+const FormField = ({
+  label,
+  children,
+  required = false,
   error = null,
-  id 
+  id
 }) => (
   <div className="space-y-2">
-    <label 
+    <label
       htmlFor={id}
       className="block text-sm font-medium text-slate-200"
     >
@@ -51,27 +51,26 @@ const FormField = ({
 );
 
 const LoadingSpinner = ({ size = "sm" }) => (
-  <div 
-    className={`animate-spin rounded-full border-2 border-emerald-400 border-t-transparent ${
-      size === "sm" ? "h-4 w-4" : "h-6 w-6"
-    }`}
+  <div
+    className={`animate-spin rounded-full border-2 border-emerald-400 border-t-transparent ${size === "sm" ? "h-4 w-4" : "h-6 w-6"
+      }`}
     role="status"
     aria-label="Loading"
   />
 );
 
-const Button = ({ 
-  children, 
-  variant = "primary", 
-  type = "button", 
-  disabled = false, 
+const Button = ({
+  children,
+  variant = "primary",
+  type = "button",
+  disabled = false,
   loading = false,
   onClick,
   className = "",
-  ...props 
+  ...props
 }) => {
   const baseClasses = "px-4 py-2.5 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2";
-  
+
   const variants = {
     primary: "bg-emerald-600 hover:bg-emerald-700 text-white focus:ring-emerald-500 disabled:hover:bg-emerald-600",
     secondary: "bg-slate-700 hover:bg-slate-600 text-slate-200 focus:ring-slate-500 disabled:hover:bg-slate-700",
@@ -92,17 +91,17 @@ const Button = ({
   );
 };
 
-const Select = ({ 
-  value, 
-  onChange, 
-  options = [], 
-  placeholder = "", 
-  disabled = false, 
+const Select = ({
+  value,
+  onChange,
+  options = [],
+  placeholder = "",
+  disabled = false,
   loading = false,
   id,
   name,
   required = false,
-  ...props 
+  ...props
 }) => (
   <div className="relative">
     <select
@@ -134,18 +133,18 @@ const Select = ({
   </div>
 );
 
-const Input = ({ 
-  type = "text", 
-  value, 
-  onChange, 
-  placeholder = "", 
+const Input = ({
+  type = "text",
+  value,
+  onChange,
+  placeholder = "",
   disabled = false,
   id,
   name,
   required = false,
   min,
   step,
-  ...props 
+  ...props
 }) => (
   <input
     id={id}
@@ -167,20 +166,18 @@ const StepIndicator = ({ currentStep, totalSteps }) => (
   <div className="flex items-center justify-center mb-6">
     {Array.from({ length: totalSteps }, (_, i) => (
       <div key={i} className="flex items-center">
-        <div 
-          className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors duration-200 ${
-            i + 1 <= currentStep 
-              ? 'bg-emerald-600 text-white' 
+        <div
+          className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors duration-200 ${i + 1 <= currentStep
+              ? 'bg-emerald-600 text-white'
               : 'bg-slate-700 text-slate-400'
-          }`}
+            }`}
         >
           {i + 1}
         </div>
         {i < totalSteps - 1 && (
-          <div 
-            className={`w-12 h-0.5 mx-2 transition-colors duration-200 ${
-              i + 1 < currentStep ? 'bg-emerald-600' : 'bg-slate-700'
-            }`}
+          <div
+            className={`w-12 h-0.5 mx-2 transition-colors duration-200 ${i + 1 < currentStep ? 'bg-emerald-600' : 'bg-slate-700'
+              }`}
           />
         )}
       </div>
@@ -225,8 +222,8 @@ export default function AddLandModal({ open, onClose }) {
   const [autoLocationName, setAutoLocationName] = useState("");
 
   // Memoized crop options for better performance
-  const cropSelectOptions = useMemo(() => 
-    cropOptions.map(crop => ({ value: crop, label: crop })), 
+  const cropSelectOptions = useMemo(() =>
+    cropOptions.map(crop => ({ value: crop, label: crop })),
     []
   );
 
@@ -261,8 +258,8 @@ export default function AddLandModal({ open, onClose }) {
       setLoadingStates(prev => ({ ...prev, kabupaten: true }));
       fetchKabupaten(form.provinsi)
         .then((data) => {
-          setLocationData(prev => ({ 
-            ...prev, 
+          setLocationData(prev => ({
+            ...prev,
             kabupatenList: data,
             kecamatanList: [],
             kelurahanList: []
@@ -280,8 +277,8 @@ export default function AddLandModal({ open, onClose }) {
       setLoadingStates(prev => ({ ...prev, kecamatan: true }));
       fetchKecamatan(form.kabupaten)
         .then((data) => {
-          setLocationData(prev => ({ 
-            ...prev, 
+          setLocationData(prev => ({
+            ...prev,
             kecamatanList: data,
             kelurahanList: []
           }));
@@ -339,7 +336,7 @@ export default function AddLandModal({ open, onClose }) {
 
   const validateStep = useCallback((currentStep) => {
     const newErrors = {};
-    
+
     if (currentStep === 1) {
       if (!form.crop) newErrors.crop = "Jenis tanaman harus dipilih";
       if (form.crop === "Lainnya" && !form.customCrop.trim()) {
@@ -437,7 +434,7 @@ export default function AddLandModal({ open, onClose }) {
         onClose();
       }
     };
-    
+
     document.addEventListener('keydown', handleEscape);
     return () => document.removeEventListener('keydown', handleEscape);
   }, [open, onClose]);
@@ -446,9 +443,9 @@ export default function AddLandModal({ open, onClose }) {
 
   const renderStep1 = () => (
     <div className="space-y-6">
-      <FormField 
-        label="Jenis Tanaman" 
-        required 
+      <FormField
+        label="Jenis Tanaman"
+        required
         error={errors.crop}
         id="crop-select"
       >
@@ -463,9 +460,9 @@ export default function AddLandModal({ open, onClose }) {
       </FormField>
 
       {form.crop === "Lainnya" && (
-        <FormField 
-          label="Jenis Tanaman Lainnya" 
-          required 
+        <FormField
+          label="Jenis Tanaman Lainnya"
+          required
           error={errors.customCrop}
           id="custom-crop"
         >
@@ -480,9 +477,9 @@ export default function AddLandModal({ open, onClose }) {
         </FormField>
       )}
 
-      <FormField 
-        label="Nama Lahan" 
-        required 
+      <FormField
+        label="Nama Lahan"
+        required
         error={errors.name}
         id="land-name"
       >
@@ -497,8 +494,8 @@ export default function AddLandModal({ open, onClose }) {
       </FormField>
 
       <div className="flex justify-end pt-4">
-        <Button 
-          variant="primary" 
+        <Button
+          variant="primary"
           onClick={handleNext}
         >
           Lanjut
@@ -509,8 +506,8 @@ export default function AddLandModal({ open, onClose }) {
 
   const renderStep2 = () => (
     <div className="space-y-6">
-      <FormField 
-        label="Mode Lokasi" 
+      <FormField
+        label="Mode Lokasi"
         id="location-mode"
       >
         <Select
@@ -526,8 +523,8 @@ export default function AddLandModal({ open, onClose }) {
       </FormField>
 
       {form.locationMode === "otomatis" ? (
-        <FormField 
-          label="Lokasi Otomatis" 
+        <FormField
+          label="Lokasi Otomatis"
           id="auto-location"
         >
           <div className="bg-slate-800 border border-slate-600 rounded-lg px-3 py-2.5 text-slate-200 min-h-[42px] flex items-center">
@@ -543,9 +540,9 @@ export default function AddLandModal({ open, onClose }) {
         </FormField>
       ) : (
         <div className="space-y-4">
-          <FormField 
-            label="Provinsi" 
-            required 
+          <FormField
+            label="Provinsi"
+            required
             error={errors.provinsi}
             id="provinsi"
           >
@@ -560,9 +557,9 @@ export default function AddLandModal({ open, onClose }) {
             />
           </FormField>
 
-          <FormField 
-            label="Kabupaten/Kota" 
-            required 
+          <FormField
+            label="Kabupaten/Kota"
+            required
             error={errors.kabupaten}
             id="kabupaten"
           >
@@ -578,9 +575,9 @@ export default function AddLandModal({ open, onClose }) {
             />
           </FormField>
 
-          <FormField 
-            label="Kecamatan" 
-            required 
+          <FormField
+            label="Kecamatan"
+            required
             error={errors.kecamatan}
             id="kecamatan"
           >
@@ -596,9 +593,9 @@ export default function AddLandModal({ open, onClose }) {
             />
           </FormField>
 
-          <FormField 
-            label="Kelurahan/Desa" 
-            required 
+          <FormField
+            label="Kelurahan/Desa"
+            required
             error={errors.kelurahan}
             id="kelurahan"
           >
@@ -617,14 +614,14 @@ export default function AddLandModal({ open, onClose }) {
       )}
 
       <div className="flex justify-between pt-4">
-        <Button 
-          variant="secondary" 
+        <Button
+          variant="secondary"
           onClick={handleBack}
         >
           Kembali
         </Button>
-        <Button 
-          variant="primary" 
+        <Button
+          variant="primary"
           onClick={handleNext}
         >
           Lanjut
@@ -635,9 +632,9 @@ export default function AddLandModal({ open, onClose }) {
 
   const renderStep3 = () => (
     <div className="space-y-6">
-      <FormField 
-        label="Luas Lahan (hektar)" 
-        required 
+      <FormField
+        label="Luas Lahan (hektar)"
+        required
         error={errors.size}
         id="land-size"
       >
@@ -661,15 +658,15 @@ export default function AddLandModal({ open, onClose }) {
       )}
 
       <div className="flex justify-between pt-4">
-        <Button 
-          variant="secondary" 
+        <Button
+          variant="secondary"
           onClick={handleBack}
           disabled={loadingStates.submit}
         >
           Kembali
         </Button>
-        <Button 
-          variant="primary" 
+        <Button
+          variant="primary"
           onClick={handleSubmit}
           loading={loadingStates.submit}
           disabled={loadingStates.submit}
@@ -690,7 +687,7 @@ export default function AddLandModal({ open, onClose }) {
         aria-modal="true"
         aria-labelledby="modal-title"
       />
-      
+
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
         <div
@@ -699,7 +696,7 @@ export default function AddLandModal({ open, onClose }) {
         >
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-slate-700">
-            <h2 
+            <h2
               id="modal-title"
               className="text-xl font-semibold text-white"
             >
@@ -719,7 +716,7 @@ export default function AddLandModal({ open, onClose }) {
           {/* Content */}
           <div className="p-6">
             <StepIndicator currentStep={step} totalSteps={3} />
-            
+
             {step === 1 && renderStep1()}
             {step === 2 && renderStep2()}
             {step === 3 && renderStep3()}

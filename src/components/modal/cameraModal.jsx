@@ -35,11 +35,11 @@ export function CameraModal({ onClose, onUseImage }) {
   }, [onClose]);
 
   // Update stream ke video element saat berubah
-    useEffect(() => {
+  useEffect(() => {
     if (videoRef.current && stream && !captured) {
-        videoRef.current.srcObject = stream;
+      videoRef.current.srcObject = stream;
     }
-    }, [captured, stream]);
+  }, [captured, stream]);
 
   const handleCapture = () => {
     const video = videoRef.current;

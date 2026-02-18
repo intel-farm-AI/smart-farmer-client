@@ -141,8 +141,8 @@ export default function Login() {
                 <div className="mt-8 text-center">
                   <p className="text-slate-300 text-sm">
                     Belum punya akun?{" "}
-                    <Link 
-                      to="/register" 
+                    <Link
+                      to="/register"
                       className="text-emerald-400 hover:text-emerald-300 font-semibold hover:underline transition-colors duration-200"
                     >
                       Daftar sekarang

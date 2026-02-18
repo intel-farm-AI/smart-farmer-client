@@ -155,8 +155,8 @@ export function Register() {
                 <div className="mt-8 text-center">
                   <p className="text-slate-300 text-sm">
                     Sudah punya akun?{" "}
-                    <Link 
-                      to="/login" 
+                    <Link
+                      to="/login"
                       className="text-emerald-400 hover:text-emerald-300 font-semibold hover:underline transition-colors duration-200"
                     >
                       Masuk sekarang
@@ -164,7 +164,7 @@ export function Register() {
                   </p>
                 </div>
               </div>
- 
+
             </div>
           </div>
 
