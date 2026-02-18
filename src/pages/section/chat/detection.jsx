@@ -64,7 +64,7 @@ export function PlantDiseaseDetection() {
       // Tampilkan hasil prediksi secara markdown
       setResult(
         data.label
-          ? `**${data.label}**\n\n**Akurasi:** ${data.confidence}%\n\n**Deskripsi:** ${data.deskripsi}\n\n**Rekomendasi Obat:**\n${Array.isArray(data.obat_rekomendasi) && data.obat_rekomendasi.length > 0 ? data.obat_rekomendasi.map((o) => `- ${o}`).join("\n") : "Tidak ada rekomendasi."}`
+          ? `**${data.label}**\n\n**Confidence score:** ${data.confidence}%\n\n**Deskripsi:** ${data.deskripsi}\n\n**Rekomendasi Obat:**\n${Array.isArray(data.obat_rekomendasi) && data.obat_rekomendasi.length > 0 ? data.obat_rekomendasi.map((o) => `- ${o}`).join("\n") : "Tidak ada rekomendasi."}`
           : "Tidak ada respons dari AI."
       );
     } catch {
