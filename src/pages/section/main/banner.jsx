@@ -119,7 +119,7 @@ export function Banner() {
 
                 <div className="relative bg-white/10 backdrop-blur-lg rounded-3xl p-2 shadow-2xl border border-white/20 group-hover:shadow-green-500/20 transition-all duration-500">
                   <img
-                    src="/src/assets/images/homepage/homepage.jpg"
+                    src="/assets/images/homepage/homepage.jpg"
                     alt="SmartFarm AI Dashboard"
                     draggable="false"
                     className="w-full h-auto rounded-2xl shadow-xl group-hover:scale-105 transition-transform duration-500 select-none"

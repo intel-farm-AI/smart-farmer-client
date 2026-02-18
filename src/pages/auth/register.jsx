@@ -173,7 +173,7 @@ export function Register() {
             <div className="absolute inset-0 bg-gradient-to-l from-emerald-600/20 to-emerald-400/20 rounded-3xl blur-3xl"></div>
             <div className="relative z-10 bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
               <img
-                src="/src/assets/images/homepage/register.jpg"
+                src="/assets/images/homepage/register.jpg"
                 alt="Register Illustration"
                 className="w-full h-auto rounded-2xl shadow-2xl object-cover"
               />

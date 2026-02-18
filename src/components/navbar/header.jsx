@@ -56,7 +56,7 @@ export function Header({ withNavigation }) {
         >
           <div className="relative">
             <img
-              src="/src/assets/images/logo/smart-farm.svg"
+              src="/assets/images/logo/smart-farm.svg"
               alt="Smartfarm AI Logo"
               className="w-9 h-9 drop-shadow-lg group-hover:drop-shadow-2xl transition-all duration-300"
             />

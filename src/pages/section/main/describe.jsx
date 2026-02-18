@@ -80,7 +80,7 @@ export function Describe() {
               <div className="relative bg-white/5 backdrop-blur-xl rounded-3xl p-3 border border-white/10">
                 <div className="relative overflow-hidden rounded-2xl">
                   <img
-                    src="/src/assets/images/homepage/daun-segar.jpeg"
+                    src="/assets/images/homepage/daun-segar.jpeg"
                     alt="SmartFarm AI Platform"
                     className="w-full h-[400px] object-cover"
                   />
