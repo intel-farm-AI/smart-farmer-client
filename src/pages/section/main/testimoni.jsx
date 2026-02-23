@@ -74,9 +74,8 @@ export function Testimoni() {
       <div className="container mx-auto px-6 relative z-10">
         {/* Header */}
         <div
-          className={`text-center mb-16 transition-all duration-1000 ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
-          }`}
+          className={`text-center mb-16 transition-all duration-1000 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
+            }`}
         >
           <h2 className="text-4xl lg:text-5xl font-bold mb-6">
             <span className="text-gray-200">Apa Kata </span>
@@ -94,9 +93,8 @@ export function Testimoni() {
           {testimonials.map((testimonial, index) => (
             <div
               key={testimonial.id}
-              className={`transition-all duration-1000 ${
-                isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
-              }`}
+              className={`transition-all duration-1000 ${isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
+                }`}
               style={{ transitionDelay: `${index * 200}ms` }}
               onMouseEnter={() => setActiveTestimonial(index)}
             >
@@ -104,10 +102,9 @@ export function Testimoni() {
               <div
                 className={`relative p-8 rounded-3xl transition-all duration-300 
                   bg-white/10 backdrop-blur-xl border border-white/20 
-                  ${
-                    activeTestimonial === index
-                      ? "shadow-xl"
-                      : "hover:shadow-lg hover:bg-white/20"
+                  ${activeTestimonial === index
+                    ? "shadow-xl"
+                    : "hover:shadow-lg hover:bg-white/20"
                   }`}
               >
                 {/* Quote Icon */}

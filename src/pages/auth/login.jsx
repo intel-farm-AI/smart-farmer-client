@@ -41,7 +41,7 @@ export default function Login() {
             <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/20 to-emerald-400/20 rounded-3xl blur-3xl"></div>
             <div className="relative z-10 bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
               <img
-                src="/src/assets/images/homepage/login.jpg"
+                src="/assets/images/homepage/login.jpg"
                 alt="Ilustrasi Masuk"
                 className="w-full h-auto rounded-2xl shadow-2xl object-cover"
               />
@@ -141,8 +141,8 @@ export default function Login() {
                 <div className="mt-8 text-center">
                   <p className="text-slate-300 text-sm">
                     Belum punya akun?{" "}
-                    <Link 
-                      to="/register" 
+                    <Link
+                      to="/register"
                       className="text-emerald-400 hover:text-emerald-300 font-semibold hover:underline transition-colors duration-200"
                     >
                       Daftar sekarang

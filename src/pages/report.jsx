@@ -53,7 +53,7 @@ export default function ContactPage() {
             Form ini akan mengirimkan email langsung ke tim kami.
           </p>
           <p className="text-slate-300 text-center mb-8">
-            Punya pertanyaan, masukan, atau laporan?  
+            Punya pertanyaan, masukan, atau laporan?
             Silakan isi form di bawah ini 📩
           </p>
 

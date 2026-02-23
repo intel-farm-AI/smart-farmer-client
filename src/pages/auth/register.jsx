@@ -155,8 +155,8 @@ export function Register() {
                 <div className="mt-8 text-center">
                   <p className="text-slate-300 text-sm">
                     Sudah punya akun?{" "}
-                    <Link 
-                      to="/login" 
+                    <Link
+                      to="/login"
                       className="text-emerald-400 hover:text-emerald-300 font-semibold hover:underline transition-colors duration-200"
                     >
                       Masuk sekarang
@@ -164,7 +164,7 @@ export function Register() {
                   </p>
                 </div>
               </div>
- 
+
             </div>
           </div>
 
@@ -173,7 +173,7 @@ export function Register() {
             <div className="absolute inset-0 bg-gradient-to-l from-emerald-600/20 to-emerald-400/20 rounded-3xl blur-3xl"></div>
             <div className="relative z-10 bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
               <img
-                src="/src/assets/images/homepage/register.jpg"
+                src="/assets/images/homepage/register.jpg"
                 alt="Register Illustration"
                 className="w-full h-auto rounded-2xl shadow-2xl object-cover"
               />

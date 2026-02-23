@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { 
+import {
   FaUpload,
   FaBrain,
   FaLightbulb,
@@ -39,7 +39,7 @@ export function HowItWorks() {
       glowColor: "blue-400/30"
     },
     {
-      number: "02", 
+      number: "02",
       icon: FaBrain,
       title: "AI Analysis",
       description: "AI menganalisis dan mendeteksi penyakit atau masalah dengan akurasi tinggi dalam hitungan detik",
@@ -62,27 +62,27 @@ export function HowItWorks() {
 
   return (
     <section id="howitworks-section" className="py-24 relative overflow-hidden bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900">
-      
+
       {/* Animated Background Elements - Reduced Brightness */}
       <div className="absolute inset-0">
         {/* Primary background orbs - Much more subtle */}
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-br from-blue-500/8 to-cyan-500/8 rounded-full blur-3xl animate-pulse"></div>
-        <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-gradient-to-br from-purple-500/8 to-pink-500/8 rounded-full blur-3xl animate-pulse" style={{animationDelay: '1s'}}></div>
-        <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-gradient-to-br from-emerald-500/8 to-teal-500/8 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
-        
+        <div className="absolute top-1/2 right-1/4 w-80 h-80 bg-gradient-to-br from-purple-500/8 to-pink-500/8 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-1/4 left-1/3 w-72 h-72 bg-gradient-to-br from-emerald-500/8 to-teal-500/8 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+
         {/* Secondary subtle orbs - Further reduced */}
         <div className="absolute top-10 right-10 w-32 h-32 bg-white/3 rounded-full blur-xl"></div>
         <div className="absolute bottom-20 left-20 w-24 h-24 bg-white/3 rounded-full blur-xl"></div>
-        
+
         {/* Grid pattern overlay - More subtle */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.02)_1px,transparent_0)] bg-[size:50px_50px]"></div>
       </div>
 
       <div className="container mx-auto px-6 relative z-10">
-        
+
         {/* Header with Glassmorphism */}
         <div className={`text-center mb-20 transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
-           
+
           {/* Main Title */}
           <h2 className="text-5xl lg:text-6xl font-bold mb-6">
             <span className="text-white">Cara Kerja </span>
@@ -90,7 +90,7 @@ export function HowItWorks() {
               SmartFarm AI
             </span>
           </h2>
-          
+
           {/* Subtitle */}
           <p className="text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
             Proses yang sederhana namun powerful untuk mengoptimalkan hasil pertanian Anda
@@ -99,35 +99,33 @@ export function HowItWorks() {
 
         {/* Steps Container */}
         <div className="relative">
-          
+
           {/* Connection Line with Glassmorphism - More subtle */}
           <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-px transform -translate-y-1/2 z-0">
             <div className="w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
           </div>
-          
+
           <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 relative z-10">
             {steps.map((step, index) => {
               const IconComponent = step.icon;
               return (
-                <div 
+                <div
                   key={index}
-                  className={`group relative transition-all duration-1000 ${
-                    isVisible 
-                      ? 'translate-y-0 opacity-100' 
+                  className={`group relative transition-all duration-1000 ${isVisible
+                      ? 'translate-y-0 opacity-100'
                       : 'translate-y-20 opacity-0'
-                  }`}
+                    }`}
                   style={{ transitionDelay: `${index * 200}ms` }}
                   onMouseEnter={() => setActiveStep(index)}
                 >
-                  
+
                   {/* Main Glassmorphism Card */}
-                  <div className={`relative p-6 rounded-2xl transition-all duration-500 transform ${
-                    activeStep === index ? 'scale-105' : 'hover:scale-[1.02]'
-                  } bg-white/8 backdrop-blur-xl border border-white/15 shadow-2xl hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.3)] hover:bg-white/12`}>
-                    
+                  <div className={`relative p-6 rounded-2xl transition-all duration-500 transform ${activeStep === index ? 'scale-105' : 'hover:scale-[1.02]'
+                    } bg-white/8 backdrop-blur-xl border border-white/15 shadow-2xl hover:shadow-[0_25px_50px_-12px_rgba(0,0,0,0.3)] hover:bg-white/12`}>
+
                     {/* Glow Effect - Much more subtle */}
                     <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 bg-gradient-to-br ${step.gradientFrom} ${step.gradientTo} blur-xl -z-10 scale-110`}></div>
-                    
+
                     {/* Step Number Badge */}
                     <div className="absolute -top-4 left-6 z-20">
                       <div className={`w-10 h-10 rounded-xl flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform duration-300 bg-gradient-to-br ${step.gradientFrom} ${step.gradientTo} backdrop-blur-sm border border-white/20`}>

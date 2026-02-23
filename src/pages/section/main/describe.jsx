@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { 
+import {
   FaRocket,
   FaDatabase,
   FaSync,
@@ -72,16 +72,15 @@ export function Describe() {
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           {/* Image Section */}
           <div
-            className={`relative transition-all duration-1000 ${
-              isVisible ? "translate-x-0 opacity-100" : "-translate-x-10 opacity-0"
-            }`}
+            className={`relative transition-all duration-1000 ${isVisible ? "translate-x-0 opacity-100" : "-translate-x-10 opacity-0"
+              }`}
           >
             <div className="relative group">
               <div className="absolute -inset-4 bg-gradient-to-r from-emerald-500/20 to-blue-500/20 rounded-3xl blur-2xl group-hover:blur-xl transition-all duration-500"></div>
               <div className="relative bg-white/5 backdrop-blur-xl rounded-3xl p-3 border border-white/10">
                 <div className="relative overflow-hidden rounded-2xl">
                   <img
-                    src="/src/assets/images/homepage/daun-segar.jpeg"
+                    src="/assets/images/homepage/daun-segar.jpeg"
                     alt="SmartFarm AI Platform"
                     className="w-full h-[400px] object-cover"
                   />
@@ -99,9 +98,8 @@ export function Describe() {
 
           {/* Content Section */}
           <div
-            className={`space-y-10 transition-all duration-1000 delay-300 ${
-              isVisible ? "translate-x-0 opacity-100" : "translate-x-10 opacity-0"
-            }`}
+            className={`space-y-10 transition-all duration-1000 delay-300 ${isVisible ? "translate-x-0 opacity-100" : "translate-x-10 opacity-0"
+              }`}
           >
             {/* Header */}
             <div className="space-y-6">
@@ -128,20 +126,20 @@ export function Describe() {
                     key={index}
                     className="group p-6 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300"
                   >
-                      <div
-                        className={`w-12 h-12 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
-                      >
-                        <IconComponent className="w-6 h-6 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <h4 className="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors duration-300">
-                          {feature.title}
-                        </h4>
-                        <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
-                          {feature.description}
-                        </p>
-                      </div>
+                    <div
+                      className={`w-12 h-12 bg-gradient-to-br ${feature.gradient} rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}
+                    >
+                      <IconComponent className="w-6 h-6 text-white" />
                     </div>
+                    <div className="flex-1">
+                      <h4 className="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors duration-300">
+                        {feature.title}
+                      </h4>
+                      <p className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors duration-300">
+                        {feature.description}
+                      </p>
+                    </div>
+                  </div>
                 );
               })}
             </div>

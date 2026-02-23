@@ -70,7 +70,7 @@ export default function Task() {
               <span>{formatTanggalIndo(todayStr)}</span>
             </div>
           </div>
-          
+
           {/* Progress Badge & Add Button */}
           <div className="flex items-center gap-3 flex-wrap justify-end min-w-0 w-full sm:w-auto">
             {totalTasks > 0 && (
@@ -83,7 +83,7 @@ export default function Task() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="w-full bg-slate-600/50 rounded-full h-1.5">
-                    <div 
+                    <div
                       className="bg-gradient-to-r from-emerald-500 to-emerald-400 h-1.5 rounded-full transition-all duration-500 ease-out"
                       style={{ width: `${totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0}%` }}
                     ></div>
@@ -134,8 +134,8 @@ export default function Task() {
                         onClick={() => toggleDone(task.id, task.done)}
                         className={`
                           flex-shrink-0 p-1 rounded-full transition-all duration-300 hover:scale-110
-                          ${task.done 
-                            ? "text-emerald-400 hover:text-emerald-300" 
+                          ${task.done
+                            ? "text-emerald-400 hover:text-emerald-300"
                             : "text-slate-400 hover:text-emerald-400"
                           }
                         `}
@@ -148,7 +148,7 @@ export default function Task() {
                           <FiCircle className="w-6 h-6" />
                         )}
                       </button>
-                      
+
                       <span
                         className={`
                           text-base truncate transition-all duration-300
@@ -161,7 +161,7 @@ export default function Task() {
                         {task.title}
                       </span>
                     </div>
-                    
+
                     {task.done && (
                       <button
                         onClick={() => deleteTask(task.id)}
@@ -189,8 +189,8 @@ export default function Task() {
                 </span>
               )}
             </div>
-            <a 
-              href="/dashboard/listTasks" 
+            <a
+              href="/dashboard/listTasks"
               className="text-emerald-400 hover:text-emerald-300 text-sm font-medium flex items-center gap-2 hover:gap-3 transition-all duration-300 group"
             >
               <span>Lihat Semua Tugas</span>
