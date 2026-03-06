@@ -2,6 +2,8 @@
 
 # 🌾 Smartfarm AI (Agrify)
 
+## [Country Winner in Intel® AI Global Impact Festival 2025](https://www.intel.com/content/www/us/en/corporate/artificial-intelligence/winner2025.html#tab-blade-1-0)
+
 ### Sistem Cerdas Berbasis AI untuk Pertanian Modern Indonesia
 
 [![React](https://img.shields.io/badge/React-19.1-61DAFB?logo=react&logoColor=white)](https://react.dev/)
